@@ -1,8 +1,21 @@
+import { ThemeProvider } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
 import React from "react";
-import { KanbanColumn } from "./Components/KanbanColumn/KanbanColumn";
+import { Board } from "./Components/Board/Board";
+import { BoardColumn } from "./Components/Board/BoardColumn";
+import { globalLightTheme } from "./Components/Board/Themes/globalTheme";
 
 function App() {
-  return <KanbanColumn></KanbanColumn>;
+  return (
+    <ThemeProvider theme={globalLightTheme}>
+      <CssBaseline />
+      <Board>
+        <BoardColumn></BoardColumn>
+        <BoardColumn></BoardColumn>
+        <BoardColumn></BoardColumn>
+      </Board>
+    </ThemeProvider>
+  );
 }
 
 export default App;
