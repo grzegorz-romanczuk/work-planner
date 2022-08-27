@@ -1,11 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "baseUrl": "./",
+    "target": "ES6",
+    "outDir": "./dist/",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -18,9 +16,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "Components/*": ["src/components/*"],
+      "Entity/*": ["src/models/*"],
+      "*": ["types/*"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["./src/**/*", "public"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
