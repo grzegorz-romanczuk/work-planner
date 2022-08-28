@@ -9,7 +9,7 @@ const defaultProps: Partial<BoardProps> = {
   alignItems: "flex-start",
   spacing: { xs: 2, sm: 3 },
   minWidth: "95vw",
-  maxHeight: "80vh",
+  height: "90vh",
   margin: 1,
 };
 
@@ -21,7 +21,7 @@ export const Board: React.FC<BoardProps> = (props) => {
     spacing,
     children,
     minWidth,
-    maxHeight,
+    height,
     margin,
   } = {
     ...defaultProps,
@@ -36,7 +36,7 @@ export const Board: React.FC<BoardProps> = (props) => {
       spacing={spacing}
       minWidth={minWidth}
       margin={margin}
-      maxHeight={maxHeight}
+      height={height}
       display="flex"
     >
       {children?.map((item, index) => {

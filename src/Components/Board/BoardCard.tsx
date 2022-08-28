@@ -1,5 +1,10 @@
-import { Card, CardContent, CardHeader, Typography } from "@mui/material";
-import { isNumber } from "util";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+  ButtonBase,
+} from "@mui/material";
 
 export type BoardCardProps = {
   title?: React.ReactNode;
@@ -18,6 +23,7 @@ export type BoardCardProps = {
 const defaultProps = {
   elevation: 3,
   borderRadius: 1,
+  padding: 0,
 };
 
 export const BoardCard: React.FC<BoardCardProps> = (props) => {
@@ -39,21 +45,27 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
   };
 
   return (
-    <Card sx={{ borderRadius }} raised={raised} elevation={elevation}>
-      {headerColor && (
-        <CardHeader
-          title={
-            <Typography gutterBottom variant="h6">
-              {" "}
-            </Typography>
-          }
-          sx={{
-            padding: 1,
-            backgroundColor: headerColor,
-          }}
-        />
-      )}
-      <CardContent sx={{ padding: 1 }}>{title}</CardContent>
-    </Card>
+    <ButtonBase sx={{ padding, textAlign: "start" }}>
+      <Card
+        sx={{ borderRadius, width: "100%" }}
+        raised={raised}
+        elevation={elevation}
+      >
+        {headerColor && (
+          <CardHeader
+            title={
+              <Typography gutterBottom variant="h6">
+                {" "}
+              </Typography>
+            }
+            sx={{
+              padding: 1,
+              backgroundColor: headerColor,
+            }}
+          />
+        )}
+        <CardContent sx={{ padding: 1 }}>{title}</CardContent>
+      </Card>
+    </ButtonBase>
   );
 };

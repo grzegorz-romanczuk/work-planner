@@ -1,6 +1,14 @@
 import React from "react";
-import { Card, CardContent, CardHeader, StackProps } from "@mui/material";
+import {
+  CardActions,
+  Card,
+  CardContent,
+  CardHeader,
+  Grid,
+  StackProps,
+} from "@mui/material";
 import { Stack, SxProps } from "@mui/system";
+import { AddCardField } from "../BoardActions/AddCardField/AddCardField";
 
 export type BoardColumnProps = StackProps &
   SxProps & {
@@ -16,14 +24,15 @@ export type BoardColumnProps = StackProps &
 const defaultProps: Partial<BoardColumnProps> = {
   minWidth: { xs: "100%", sm: "20em" },
   maxWidth: 350,
+  maxHeight: "100%",
   raised: true,
   borderRadius: 1,
-  maxHeight: "80%",
+  height: "100%",
   padding: 1,
   direction: "column",
   justifyContent: "flex-start",
   alignItems: "flex-start",
-  spacing: { xs: 2, sm: 3 },
+  spacing: { xs: 1, sm: 2 },
 };
 
 export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
@@ -33,10 +42,11 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     children,
     minWidth,
     maxWidth,
+    maxHeight,
     raised,
     borderRadius,
     headerColor,
-    maxHeight,
+    height,
     padding,
     direction,
     justifyContent,
@@ -46,30 +56,39 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     ...defaultProps,
     ...props,
   };
+
   return (
-    <Card
-      sx={{
-        minWidth,
-        maxWidth,
-        borderRadius,
-        maxHeight,
-      }}
-      raised={raised}
-    >
-      <CardHeader
-        title={title}
-        subheader={subheader}
-        sx={{
-          textAlign: "center",
-          backgroundColor: headerColor,
-          padding,
-        }}
-      />
-      <CardContent sx={{ overflow: "auto" }}>
-        <Stack direction={direction} spacing={spacing}>
-          {children}
-        </Stack>
-      </CardContent>
-    </Card>
+    <Grid container sx={{ height, minWidth, maxWidth }}>
+      <Grid xs={12} sx={{ height }}>
+        <Card
+          sx={{
+            maxHeight,
+            borderRadius,
+            display: "flex",
+            flexDirection: "column",
+            backgroundColor: "board.column",
+          }}
+          raised={raised}
+        >
+          <CardHeader
+            title={title}
+            subheader={subheader}
+            sx={{
+              textAlign: "center",
+              backgroundColor: headerColor,
+              padding,
+            }}
+          />
+          <CardContent sx={{ overflow: "auto", padding }}>
+            <Stack direction={direction} spacing={spacing}>
+              {children}
+            </Stack>
+          </CardContent>
+          <CardActions>
+            <AddCardField />
+          </CardActions>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
