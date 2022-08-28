@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/work-planner/static/css/main.e6c13ad2.css",
+    "main.js": "/work-planner/static/js/main.05eb0e18.js",
+    "static/js/787.dd474123.chunk.js": "/work-planner/static/js/787.dd474123.chunk.js",
+    "index.html": "/work-planner/index.html",
+    "main.e6c13ad2.css.map": "/work-planner/static/css/main.e6c13ad2.css.map",
+    "main.05eb0e18.js.map": "/work-planner/static/js/main.05eb0e18.js.map",
+    "787.dd474123.chunk.js.map": "/work-planner/static/js/787.dd474123.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.05eb0e18.js"
+  ]
+}
