@@ -1,7 +1,7 @@
-import { Grid, GridProps, Stack } from "@mui/material";
+import { Stack, StackProps } from "@mui/material";
 import React from "react";
 
-export type BoardProps = GridProps & { children?: Array<React.ReactNode> };
+export type BoardProps = StackProps & { children?: Array<React.ReactNode> };
 
 const defaultProps: Partial<BoardProps> = {
   direction: "row",
@@ -9,6 +9,7 @@ const defaultProps: Partial<BoardProps> = {
   alignItems: "flex-start",
   spacing: { xs: 2, sm: 3 },
   minWidth: "95vw",
+  maxHeight: "80vh",
   margin: 1,
 };
 
@@ -20,6 +21,7 @@ export const Board: React.FC<BoardProps> = (props) => {
     spacing,
     children,
     minWidth,
+    maxHeight,
     margin,
   } = {
     ...defaultProps,
@@ -34,6 +36,8 @@ export const Board: React.FC<BoardProps> = (props) => {
       spacing={spacing}
       minWidth={minWidth}
       margin={margin}
+      maxHeight={maxHeight}
+      display="flex"
     >
       {children?.map((item, index) => {
         return item;
