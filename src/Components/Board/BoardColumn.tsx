@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Stack, SxProps } from "@mui/system";
 import { AddCardField } from "../BoardActions/AddCardField/AddCardField";
+import { State } from "../../Utils/Board.utils";
 
 export type BoardColumnProps = StackProps &
   SxProps & {
@@ -19,6 +20,9 @@ export type BoardColumnProps = StackProps &
     borderRadius?: number;
     padding?: number | string;
     headerColor?: string;
+    date: string;
+    state: State;
+    addTask: (title: string, headerColor?: string | undefined) => void;
   };
 
 const defaultProps: Partial<BoardColumnProps> = {
@@ -53,6 +57,9 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     alignItems,
     spacing,
     id,
+    date,
+    state,
+    addTask,
   } = {
     ...defaultProps,
     ...props,
@@ -86,7 +93,7 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
             </Stack>
           </CardContent>
           <CardActions>
-            <AddCardField />
+            <AddCardField state={state} addTask={addTask} date={date} />
           </CardActions>
         </Card>
       </Grid>

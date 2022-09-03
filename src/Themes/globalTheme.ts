@@ -16,7 +16,12 @@ declare module "@mui/material/styles" {
 
   // allow configuration using `createTheme`
   interface PaletteOptions {
-    board?: { column?: React.CSSProperties["color"] };
+    board?: {
+      column?: React.CSSProperties["color"];
+      buttonBackground?: React.CSSProperties["color"];
+      hoverbuttonBackground?: React.CSSProperties["color"];
+      hoverCard?: React.CSSProperties["color"];
+    };
   }
 }
 
@@ -25,7 +30,12 @@ declare module "@mui/material/Typography" {
     buttonText: true;
   }
   interface ButtonPropsColorOverrides {
-    board: { column: true };
+    board: {
+      column: true;
+      buttonBackground: true;
+      hoverbuttonBackground: true;
+      hoverCard: true;
+    };
   }
 }
 
@@ -37,7 +47,10 @@ export const globalLightTheme = createTheme({
       paper: "#ffffff",
     },
     board: {
-      column: "#eeeeee",
+      column: "#efefef",
+      buttonBackground: "#eeeeeef2",
+      hoverbuttonBackground: "#dededef2",
+      hoverCard: "#eeeeee",
     },
   },
   typography: {

@@ -1,10 +1,12 @@
+import { Clear } from "@mui/icons-material";
 import {
   Card,
   CardContent,
   CardHeader,
+  IconButton,
   Typography,
-  ButtonBase,
 } from "@mui/material";
+import { useState } from "react";
 
 export type BoardCardProps = {
   title?: React.ReactNode;
@@ -19,6 +21,7 @@ export type BoardCardProps = {
   padding?: number | string;
   headerColor?: string;
   id?: string;
+  removeTask: (event: React.MouseEvent) => void;
 };
 
 const defaultProps = {
@@ -41,33 +44,79 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     padding,
     headerColor,
     id,
+    removeTask,
   } = {
     ...defaultProps,
     ...props,
   };
 
+  const [isHovering, setIsHovering] = useState(false);
+
+  const onMouseEnterHandler = () => {
+    setIsHovering(true);
+  };
+  const onMouseLeaveHandler = () => {
+    setIsHovering(false);
+  };
+
   return (
-    <ButtonBase sx={{ padding, textAlign: "start" }} id={id}>
-      <Card
-        sx={{ borderRadius, width: "100%" }}
-        raised={raised}
-        elevation={elevation}
-      >
-        {headerColor && (
-          <CardHeader
-            title={
-              <Typography gutterBottom variant="h6">
-                {" "}
-              </Typography>
-            }
+    <Card
+      id={id}
+      sx={{
+        padding,
+        textAlign: "start",
+        borderRadius,
+        width: "100%",
+        transition: "background 0.1s",
+        transitionDelay: "0.05s",
+        "&:hover": {
+          backgroundColor: "board.hoverCard",
+          transition: "background 0s",
+          transitionDelay: "0s",
+        },
+      }}
+      raised={raised}
+      elevation={elevation}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
+    >
+      {headerColor && (
+        <CardHeader
+          title={
+            <Typography gutterBottom variant="h6">
+              {" "}
+            </Typography>
+          }
+          sx={{
+            padding: 0.5,
+            backgroundColor: headerColor,
+          }}
+        />
+      )}
+      <CardContent sx={{ padding: 1, position: "relative" }}>
+        <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
+          {title}
+        </Typography>
+        {isHovering && (
+          <IconButton
+            size="small"
+            onClick={removeTask}
             sx={{
-              padding: 1,
-              backgroundColor: headerColor,
+              position: "absolute",
+              top: "5%",
+              left: "100%",
+              translate: "-110%",
+              backgroundColor: "board.buttonBackground",
+              borderRadius: 1,
+              "&:hover": {
+                backgroundColor: "board.hoverbuttonBackground",
+              },
             }}
-          />
+          >
+            <Clear color="primary" fontSize="inherit" />
+          </IconButton>
         )}
-        <CardContent sx={{ padding: 1 }}>{title}</CardContent>
-      </Card>
-    </ButtonBase>
+      </CardContent>
+    </Card>
   );
 };
