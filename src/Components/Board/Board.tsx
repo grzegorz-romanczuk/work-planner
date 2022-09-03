@@ -23,6 +23,7 @@ export const Board: React.FC<BoardProps> = (props) => {
     minWidth,
     height,
     margin,
+    id,
   } = {
     ...defaultProps,
     ...props,
@@ -38,6 +39,7 @@ export const Board: React.FC<BoardProps> = (props) => {
       margin={margin}
       height={height}
       display="flex"
+      id={id}
     >
       {children?.map((item, index) => {
         return item;

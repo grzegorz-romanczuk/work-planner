@@ -13,20 +13,28 @@ const defaultProps = {
   padding: 1,
   borderRadius: 2,
   width: "100%",
+  height: "2rem",
   justifyContent: "left",
   buttonText: "Add New",
 };
 
 export const AddCardButton: React.FC<AddCardButtonProps> = (props) => {
-  const { padding, borderRadius, width, buttonText, justifyContent, onClick } =
-    {
-      ...defaultProps,
-      ...props,
-    };
+  const {
+    padding,
+    borderRadius,
+    width,
+    height,
+    buttonText,
+    justifyContent,
+    onClick,
+  } = {
+    ...defaultProps,
+    ...props,
+  };
   return (
     <ButtonBase
       onClick={onClick}
-      sx={{ padding, borderRadius, width, justifyContent }}
+      sx={{ padding, borderRadius, width, height, justifyContent }}
     >
       <AddIcon sx={{ mx: 1 }} />
       <Typography variant="buttonText">{buttonText}</Typography>

@@ -52,14 +52,15 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     justifyContent,
     alignItems,
     spacing,
+    id,
   } = {
     ...defaultProps,
     ...props,
   };
 
   return (
-    <Grid container sx={{ height, minWidth, maxWidth }}>
-      <Grid xs={12} sx={{ height }}>
+    <Grid container sx={{ height, minWidth, maxWidth }} id={id}>
+      <Grid item xs={12} sx={{ height }}>
         <Card
           sx={{
             maxHeight,

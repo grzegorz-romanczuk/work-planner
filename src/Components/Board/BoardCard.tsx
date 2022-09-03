@@ -18,6 +18,7 @@ export type BoardCardProps = {
   borderRadius?: number;
   padding?: number | string;
   headerColor?: string;
+  id?: string;
 };
 
 const defaultProps = {
@@ -39,13 +40,14 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     borderRadius,
     padding,
     headerColor,
+    id,
   } = {
     ...defaultProps,
     ...props,
   };
 
   return (
-    <ButtonBase sx={{ padding, textAlign: "start" }}>
+    <ButtonBase sx={{ padding, textAlign: "start" }} id={id}>
       <Card
         sx={{ borderRadius, width: "100%" }}
         raised={raised}
