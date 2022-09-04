@@ -53,17 +53,6 @@ export const globalLightTheme = createTheme({
       hoverCard: "#eeeeee",
     },
   },
-  typography: {
-    h5: {
-      fontWeight: "bold",
-      fontSize: "1.5em",
-    },
-    h6: {},
-    buttonText: {
-      fontSize: "1em",
-      fontWeight: "bold",
-    },
-  },
   spacing: 8,
   breakpoints: {
     values: {
@@ -75,3 +64,20 @@ export const globalLightTheme = createTheme({
     },
   },
 });
+
+globalLightTheme.typography = {
+  ...globalLightTheme.typography,
+  h4: {
+    fontSize: "2em",
+    fontFamily: "Pacifico",
+  },
+  h5: {
+    fontWeight: "bold",
+    fontSize: "1.5em",
+  },
+  h6: {},
+  buttonText: {
+    fontSize: "1em",
+    fontWeight: "bold",
+  },
+};

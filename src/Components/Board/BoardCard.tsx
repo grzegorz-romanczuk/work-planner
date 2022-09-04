@@ -89,7 +89,10 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
         />
       )}
       <CardContent sx={{ padding: 1, position: "relative" }}>
-        <Typography variant="body1" sx={{ wordWrap: "break-word" }}>
+        <Typography
+          variant="body1"
+          sx={{ wordWrap: "break-word", fontWeight: "bold" }}
+        >
           {title}
         </Typography>
         {isHovering && (
