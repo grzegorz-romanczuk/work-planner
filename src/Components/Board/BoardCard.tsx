@@ -98,9 +98,9 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
             onClick={removeTask}
             sx={{
               position: "absolute",
-              top: "5%",
+              top: 0,
               left: "100%",
-              translate: "-110%",
+              translate: "-115% 15%",
               backgroundColor: "board.buttonBackground",
               borderRadius: 1,
               "&:hover": {
