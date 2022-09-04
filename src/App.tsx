@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react";
-import { CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import React from "react";
 
 import { BoardContainer } from "./Components/Board/BoardContainer";
@@ -13,8 +13,22 @@ function App() {
   return (
     <ThemeProvider theme={globalLightTheme}>
       <CssBaseline />
-      <Navbar />
-      <BoardContainer date={date} />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100vh",
+        }}
+      >
+        <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
+          <Navbar />
+        </Box>
+        <Box
+          sx={{ display: "flex", flexDirection: "row", flex: 1, minHeight: 0 }}
+        >
+          <BoardContainer date={date} />
+        </Box>
+      </Box>
     </ThemeProvider>
   );
 }

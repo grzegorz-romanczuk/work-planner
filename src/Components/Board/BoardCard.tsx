@@ -33,11 +33,6 @@ const defaultProps = {
 export const BoardCard: React.FC<BoardCardProps> = (props) => {
   const {
     title,
-    subheader,
-    children,
-    minHeight,
-    maxHeight,
-    height: heightProp,
     raised,
     elevation,
     borderRadius,

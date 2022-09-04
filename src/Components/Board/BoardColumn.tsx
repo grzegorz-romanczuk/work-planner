@@ -5,13 +5,13 @@ import {
   CardContent,
   CardHeader,
   Grid,
-  StackProps,
+  GridProps,
 } from "@mui/material";
 import { Stack, SxProps } from "@mui/system";
 import { AddCardField } from "../BoardActions/AddCardField/AddCardField";
 import { State } from "../../Utils/Board.utils";
 
-export type BoardColumnProps = StackProps &
+export type BoardColumnProps = GridProps &
   SxProps & {
     title?: React.ReactNode;
     subheader?: React.ReactNode;
@@ -27,7 +27,7 @@ export type BoardColumnProps = StackProps &
 
 const defaultProps: Partial<BoardColumnProps> = {
   minWidth: { xs: "100%", sm: "20em" },
-  maxWidth: 350,
+  maxWidth: { xs: "100%", sm: "20em" },
   maxHeight: "100%",
   raised: true,
   borderRadius: 1,
@@ -53,8 +53,6 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     height,
     padding,
     direction,
-    justifyContent,
-    alignItems,
     spacing,
     id,
     date,

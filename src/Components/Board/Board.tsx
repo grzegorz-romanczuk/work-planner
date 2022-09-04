@@ -10,7 +10,8 @@ const defaultProps: Partial<BoardProps> = {
   spacing: { xs: 2, sm: 3 },
   minWidth: { xs: "100%", lg: "fit-content" },
   width: { xs: "100%", lg: "fit-content" },
-  height: "90vh",
+  height: "100%",
+  maxHeight: "100%",
   mx: { sm: "auto" },
   px: { xs: 1, sm: 3 },
   py: { xs: 1, sm: 2 },
@@ -25,6 +26,7 @@ export const Board: React.FC<BoardProps> = (props) => {
     children,
     minWidth,
     height,
+    maxHeight,
     width,
     px,
     py,
@@ -50,6 +52,7 @@ export const Board: React.FC<BoardProps> = (props) => {
       display="flex"
       id={id}
       overflow="auto"
+      maxHeight={maxHeight}
     >
       {children?.map((item, index) => {
         return item;
