@@ -36,7 +36,7 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
             event.stopPropagation();
             setBoardData((prevState) => {
               const result = { ...prevState };
-              result.tasks?.splice(index);
+              result.tasks?.splice(index, 1);
               return result;
             });
           };
