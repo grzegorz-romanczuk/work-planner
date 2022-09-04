@@ -8,9 +8,12 @@ const defaultProps: Partial<BoardProps> = {
   justifyContent: "flex-start",
   alignItems: "flex-start",
   spacing: { xs: 2, sm: 3 },
-  minWidth: "95vw",
+  minWidth: { xs: "100%", lg: "fit-content" },
+  width: { xs: "100%", lg: "fit-content" },
   height: "90vh",
-  margin: 1,
+  mx: { sm: "auto" },
+  px: { xs: 1, sm: 3 },
+  py: { xs: 1, sm: 2 },
 };
 
 export const Board: React.FC<BoardProps> = (props) => {
@@ -22,7 +25,10 @@ export const Board: React.FC<BoardProps> = (props) => {
     children,
     minWidth,
     height,
-    margin,
+    width,
+    px,
+    py,
+    mx,
     id,
   } = {
     ...defaultProps,
@@ -36,10 +42,14 @@ export const Board: React.FC<BoardProps> = (props) => {
       alignItems={alignItems}
       spacing={spacing}
       minWidth={minWidth}
-      margin={margin}
+      width={width}
+      px={px}
+      py={py}
+      mx={mx}
       height={height}
       display="flex"
       id={id}
+      overflow="auto"
     >
       {children?.map((item, index) => {
         return item;
