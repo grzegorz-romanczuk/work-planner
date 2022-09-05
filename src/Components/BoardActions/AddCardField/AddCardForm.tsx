@@ -71,6 +71,9 @@ export const AddCardForm: React.FC<AddCardFormProps> = (props) => {
             variant="standard"
             hiddenLabel
             placeholder="Enter the Title..."
+            InputProps={{
+              autoComplete: "off",
+            }}
             inputRef={ref}
             value={text}
             onChange={onChangeHandler}

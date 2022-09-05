@@ -67,9 +67,17 @@ export const globalLightTheme = createTheme({
 
 globalLightTheme.typography = {
   ...globalLightTheme.typography,
+
+  h3: {
+    fontSize: "1.2em",
+    fontWeight: "bold",
+  },
   h4: {
-    fontSize: "2em",
-    fontFamily: "Pacifico",
+    fontSize: "1.8em",
+    fontFamily: "Chakra Petch",
+    "@media (min-width:360px)": {
+      fontSize: "2em",
+    },
   },
   h5: {
     fontWeight: "bold",
