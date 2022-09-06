@@ -42,8 +42,20 @@ declare module "@mui/material/Typography" {
 export const globalLightTheme = createTheme({
   palette: {
     mode: "light",
+    primary: {
+      light: "#7a7cff",
+      main: "#304ffe",
+      dark: "#0026ca",
+      contrastText: "#ffffff",
+    },
+    secondary: {
+      light: "#ffffff",
+      main: "#e0e0e0",
+      dark: "#aeaeae",
+      contrastText: "#000000",
+    },
     background: {
-      default: "#D7E0AD",
+      default: "#eeeeee",
       paper: "#ffffff",
     },
     board: {
@@ -67,6 +79,61 @@ export const globalLightTheme = createTheme({
 
 globalLightTheme.typography = {
   ...globalLightTheme.typography,
+
+  h3: {
+    fontSize: "1.2em",
+    fontWeight: "bold",
+  },
+  h4: {
+    fontSize: "1.8em",
+    fontFamily: "Chakra Petch",
+    "@media (min-width:360px)": {
+      fontSize: "2em",
+    },
+  },
+  h5: {
+    fontWeight: "bold",
+    fontSize: "1.5em",
+  },
+  h6: {},
+  buttonText: {
+    fontSize: "1em",
+    fontWeight: "bold",
+  },
+};
+
+export const globalDarkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#ffa726",
+      main: "#f57c00",
+      dark: "#ef6c00",
+      contrastText: "rgba(255, 255, 255, 1)",
+    },
+    secondary: {
+      light: "#ffa726",
+      main: "#f57c00",
+      dark: "#ef6c00",
+      contrastText: "rgba(255, 255, 255, 1)",
+    },
+    background: {},
+    board: {},
+  },
+  spacing: 8,
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 480,
+      md: 768,
+      lg: 1024,
+      xl: 1536,
+    },
+  },
+});
+
+globalDarkTheme.typography = {
+  ...globalDarkTheme.typography,
 
   h3: {
     fontSize: "1.2em",

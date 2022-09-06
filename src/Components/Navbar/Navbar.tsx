@@ -4,7 +4,10 @@ import { SxProps, StackProps } from "@mui/system";
 import { SearchField } from "../SearchField/SearchField";
 import { NavbarLogo } from "./NavbarLogo";
 import { DarkModeSwitch } from "../DarkModeSwitch/DarkModeSwitch";
-export type NavbarProps = SxProps & StackProps & {};
+export type NavbarProps = SxProps &
+  StackProps & {
+    toggleLightMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  };
 
 const defaultProps: NavbarProps = {
   height: { xs: 48 },
@@ -12,11 +15,11 @@ const defaultProps: NavbarProps = {
 };
 
 export const Navbar: React.FC<NavbarProps> = (props) => {
-  const { height, minHeight } = defaultProps;
+  const { height, minHeight, toggleLightMode } = { ...defaultProps, ...props };
 
   return (
     <React.Fragment>
-      <AppBar position="sticky" sx={{ height }}>
+      <AppBar color="secondary" position="sticky" sx={{ height }}>
         <Toolbar
           sx={{
             height: "100%",
@@ -59,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
               justifyContent: "flex-end",
             }}
           >
-            <DarkModeSwitch />
+            <DarkModeSwitch onChange={toggleLightMode} />
           </Box>
         </Toolbar>
       </AppBar>

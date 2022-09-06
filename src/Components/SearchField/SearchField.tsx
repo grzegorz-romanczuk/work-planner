@@ -5,7 +5,7 @@ export type SearchFieldProps = {};
 export const SearchField: React.FC<SearchFieldProps> = (props) => {
   return (
     <TextField
-      color="secondary"
+      color="primary"
       placeholder="Search"
       type="search"
       variant="standard"
@@ -19,7 +19,7 @@ export const SearchField: React.FC<SearchFieldProps> = (props) => {
         ),
       }}
       sx={{
-        backgroundColor: "primary.light",
+        backgroundColor: "secondary.light",
         borderRadius: 5,
         px: 2,
         width: { xs: "100%" },

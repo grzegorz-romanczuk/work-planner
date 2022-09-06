@@ -83,7 +83,12 @@ export const AddCardForm: React.FC<AddCardFormProps> = (props) => {
         <Grid item xs={2}>
           <Button
             variant="contained"
-            sx={{ minWidth: 32, width: "100%", height: "100%", p: 0 }}
+            sx={{
+              minWidth: 32,
+              width: "100%",
+              height: "100%",
+              p: 0,
+            }}
             type="submit"
           >
             <Add />

@@ -1,17 +1,24 @@
 import { ThemeProvider } from "@emotion/react";
 import { Box, CssBaseline } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 import { BoardContainer } from "./Components/Board/BoardContainer";
 import { dateFormatter } from "./Utils/dateFormatter";
-import { globalLightTheme } from "./Themes/globalTheme";
+import { globalLightTheme, globalDarkTheme } from "./Themes/globalTheme";
 import { Navbar } from "./Components/Navbar/Navbar";
 
 function App() {
   const date = dateFormatter(new Date());
+  const [isLightMode, setIsLightMode] = useState(false);
+
+  const toggleLightModeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setIsLightMode(event.target.checked);
+  };
 
   return (
-    <ThemeProvider theme={globalLightTheme}>
+    <ThemeProvider theme={isLightMode ? globalLightTheme : globalDarkTheme}>
       <CssBaseline />
       <Box
         sx={{
@@ -21,7 +28,7 @@ function App() {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
-          <Navbar />
+          <Navbar toggleLightMode={toggleLightModeHandler} />
         </Box>
         <Box
           sx={{ display: "flex", flexDirection: "row", flex: 1, minHeight: 0 }}
