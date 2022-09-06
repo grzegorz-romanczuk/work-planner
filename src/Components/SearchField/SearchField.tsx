@@ -23,9 +23,10 @@ export const SearchField: React.FC<SearchFieldProps> = (props) => {
         borderRadius: 5,
         px: 2,
         width: { xs: "100%" },
-        maxWidth: { xs: "100%", md: 500 },
+        maxWidth: { xs: "100%", sm: 500 },
         minWidth: 200,
-        boxShadow: "inset 0 0 5px #000000",
+        boxShadow: "inset 0px 0px 5px 0px rgba(0, 0, 0, 0.5)",
+        mx: 2,
       }}
     />
   );

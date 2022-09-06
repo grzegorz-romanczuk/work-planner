@@ -3,11 +3,13 @@ import { createTheme } from "@mui/material/styles";
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     buttonText: React.CSSProperties;
+    themeText: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     buttonText?: React.CSSProperties;
+    themeText?: React.CSSProperties;
   }
 
   interface Pallete {
@@ -28,6 +30,7 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     buttonText: true;
+    themeText: true;
   }
   interface ButtonPropsColorOverrides {
     board: {
@@ -100,22 +103,27 @@ globalLightTheme.typography = {
     fontSize: "1em",
     fontWeight: "bold",
   },
+  themeText: {
+    fontSize: "0.9em",
+    fontWeight: 700,
+    fontFamily: "Barlow Condensed",
+  },
 };
 
 export const globalDarkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      light: "#ffa726",
+      light: "#ffad42",
       main: "#f57c00",
-      dark: "#ef6c00",
-      contrastText: "rgba(255, 255, 255, 1)",
+      dark: "#bb4d00",
+      contrastText: "#ffffff",
     },
     secondary: {
-      light: "#ffa726",
-      main: "#f57c00",
-      dark: "#ef6c00",
-      contrastText: "rgba(255, 255, 255, 1)",
+      light: "#484848",
+      main: "#212121",
+      dark: "#000000",
+      contrastText: "#000000",
     },
     background: {},
     board: {},
@@ -154,5 +162,10 @@ globalDarkTheme.typography = {
   buttonText: {
     fontSize: "1em",
     fontWeight: "bold",
+  },
+  themeText: {
+    fontSize: "0.9em",
+    fontWeight: 700,
+    fontFamily: "Barlow Condensed",
   },
 };

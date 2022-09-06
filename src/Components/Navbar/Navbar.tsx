@@ -1,12 +1,20 @@
 import * as React from "react";
-import { AppBar, Box, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { SxProps, StackProps } from "@mui/system";
 import { SearchField } from "../SearchField/SearchField";
 import { NavbarLogo } from "./NavbarLogo";
 import { DarkModeSwitch } from "../DarkModeSwitch/DarkModeSwitch";
 export type NavbarProps = SxProps &
   StackProps & {
-    toggleLightMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    toggleDarkMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    isDarkMode?: boolean;
   };
 
 const defaultProps: NavbarProps = {
@@ -15,7 +23,13 @@ const defaultProps: NavbarProps = {
 };
 
 export const Navbar: React.FC<NavbarProps> = (props) => {
-  const { height, minHeight, toggleLightMode } = { ...defaultProps, ...props };
+  const { height, minHeight, toggleDarkMode, isDarkMode } = {
+    ...defaultProps,
+    ...props,
+  };
+
+  const theme = useTheme();
+  const smMediaQuery = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <React.Fragment>
@@ -36,7 +50,9 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              minWidth: 0,
+              [theme.breakpoints.up("lg")]: {
+                minWidth: 224,
+              },
             }}
           >
             <NavbarLogo />
@@ -57,12 +73,24 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              minWidth: 0,
+              [theme.breakpoints.up("lg")]: {
+                minWidth: 224,
+              },
               justifySelf: "flex-end",
               justifyContent: "flex-end",
+              alignContent: "center",
             }}
           >
-            <DarkModeSwitch onChange={toggleLightMode} />
+            <Typography
+              variant="themeText"
+              sx={{ height: "fit-content", my: "auto", mx: 1 }}
+            >
+              {smMediaQuery && (isDarkMode ? "DARKMODE" : "LIGHTMODE")}
+            </Typography>
+            <DarkModeSwitch
+              defaultChecked={!isDarkMode}
+              onChange={toggleDarkMode}
+            />
           </Box>
         </Toolbar>
       </AppBar>

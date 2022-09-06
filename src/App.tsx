@@ -9,16 +9,16 @@ import { Navbar } from "./Components/Navbar/Navbar";
 
 function App() {
   const date = dateFormatter(new Date());
-  const [isLightMode, setIsLightMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleLightModeHandler = (
+  const toggleDarkModeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setIsLightMode(event.target.checked);
+    setIsDarkMode(!event.target.checked);
   };
 
   return (
-    <ThemeProvider theme={isLightMode ? globalLightTheme : globalDarkTheme}>
+    <ThemeProvider theme={isDarkMode ? globalDarkTheme : globalLightTheme}>
       <CssBaseline />
       <Box
         sx={{
@@ -28,7 +28,10 @@ function App() {
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
-          <Navbar toggleLightMode={toggleLightModeHandler} />
+          <Navbar
+            toggleDarkMode={toggleDarkModeHandler}
+            isDarkMode={isDarkMode}
+          />
         </Box>
         <Box
           sx={{ display: "flex", flexDirection: "row", flex: 1, minHeight: 0 }}
