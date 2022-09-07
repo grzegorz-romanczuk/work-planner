@@ -42,6 +42,34 @@ declare module "@mui/material/Typography" {
   }
 }
 
+const defaultTypography = {
+  h3: {
+    fontSize: "1.2em",
+    fontWeight: "bold",
+  },
+  h4: {
+    fontSize: "1.8em",
+    fontFamily: "Chakra Petch",
+    "@media (min-width:360px)": {
+      fontSize: "2em",
+    },
+  },
+  h5: {
+    fontWeight: "bold",
+    fontSize: "1.5em",
+  },
+  h6: {},
+  buttonText: {
+    fontSize: "1em",
+    fontWeight: "bold",
+  },
+  themeText: {
+    fontSize: "0.9em",
+    fontWeight: 700,
+    fontFamily: "Barlow Condensed",
+  },
+};
+
 export const globalLightTheme = createTheme({
   palette: {
     mode: "light",
@@ -82,32 +110,7 @@ export const globalLightTheme = createTheme({
 
 globalLightTheme.typography = {
   ...globalLightTheme.typography,
-
-  h3: {
-    fontSize: "1.2em",
-    fontWeight: "bold",
-  },
-  h4: {
-    fontSize: "1.8em",
-    fontFamily: "Chakra Petch",
-    "@media (min-width:360px)": {
-      fontSize: "2em",
-    },
-  },
-  h5: {
-    fontWeight: "bold",
-    fontSize: "1.5em",
-  },
-  h6: {},
-  buttonText: {
-    fontSize: "1em",
-    fontWeight: "bold",
-  },
-  themeText: {
-    fontSize: "0.9em",
-    fontWeight: 700,
-    fontFamily: "Barlow Condensed",
-  },
+  ...defaultTypography,
 };
 
 export const globalDarkTheme = createTheme({
@@ -142,30 +145,5 @@ export const globalDarkTheme = createTheme({
 
 globalDarkTheme.typography = {
   ...globalDarkTheme.typography,
-
-  h3: {
-    fontSize: "1.2em",
-    fontWeight: "bold",
-  },
-  h4: {
-    fontSize: "1.8em",
-    fontFamily: "Chakra Petch",
-    "@media (min-width:360px)": {
-      fontSize: "2em",
-    },
-  },
-  h5: {
-    fontWeight: "bold",
-    fontSize: "1.5em",
-  },
-  h6: {},
-  buttonText: {
-    fontSize: "1em",
-    fontWeight: "bold",
-  },
-  themeText: {
-    fontSize: "0.9em",
-    fontWeight: 700,
-    fontFamily: "Barlow Condensed",
-  },
+  ...defaultTypography,
 };
