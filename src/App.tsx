@@ -1,11 +1,13 @@
-import { ThemeProvider } from "@emotion/react";
-import { Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
 import React, { useState } from "react";
 
 import { BoardContainer } from "./Components/Board/BoardContainer";
 import { dateFormatter } from "./Utils/dateFormatter";
 import { globalLightTheme, globalDarkTheme } from "./Themes/globalTheme";
 import { Navbar } from "./Components/Navbar/Navbar";
+import { CalendarModal } from "./Components/Calendar/CalendarModal";
 
 function App() {
   const date = dateFormatter(new Date());
@@ -18,28 +20,53 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={isDarkMode ? globalDarkTheme : globalLightTheme}>
-      <CssBaseline />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
-          <Navbar
-            toggleDarkMode={toggleDarkModeHandler}
-            isDarkMode={isDarkMode}
-          />
-        </Box>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={isDarkMode ? globalDarkTheme : globalLightTheme}>
+        <CssBaseline />
         <Box
-          sx={{ display: "flex", flexDirection: "row", flex: 1, minHeight: 0 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+          }}
         >
-          <BoardContainer date={date} />
+          <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
+            <Navbar
+              toggleDarkMode={toggleDarkModeHandler}
+              isDarkMode={isDarkMode}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flex: 1,
+              minHeight: 0,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                minWidth: 0,
+              }}
+            >
+              <CalendarModal />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                flex: 1,
+                minWidth: 0,
+              }}
+            >
+              <BoardContainer date={date} />
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </ThemeProvider>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 
