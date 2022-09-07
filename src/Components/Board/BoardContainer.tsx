@@ -36,7 +36,8 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
             event.stopPropagation();
             setBoardData((prevState) => {
               const result = { ...prevState };
-              result.tasks?.splice(index, 1);
+              result.tasks = result.tasks?.filter((task) => task !== item);
+              console.log(result);
               return result;
             });
           };
@@ -61,6 +62,7 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
         setBoardData((prevState: BoardDataType) => {
           const result = { ...prevState };
           result.tasks ? result.tasks.push(task) : (result.tasks = [task]);
+          console.log(result);
           return result;
         });
       };
