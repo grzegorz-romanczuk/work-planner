@@ -1,21 +1,21 @@
 export const columnShapes: columnShapeProps = [
   {
     id: "column-todo",
-    title: "To Do",
+    title: "TO DO",
     headerColor: "#64dd17",
     state: "todo",
   },
   {
     id: "column-progress",
-    title: "In Progress",
+    title: "IN PROGRESS",
     headerColor: "#536dfe",
     state: "progress",
   },
   {
     id: "column-completed",
-    title: "Completed",
+    title: "DONE",
     headerColor: "#ef6c00",
-    state: "completed",
+    state: "done",
   },
 ];
 
@@ -26,4 +26,4 @@ type columnShapeProps = Array<{
   state: State;
 }>;
 
-export type State = "todo" | "progress" | "completed";
+export type State = "todo" | "progress" | "done";

@@ -62,11 +62,10 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
         textAlign: "start",
         borderRadius,
         width: "100%",
-        transition: "background 0.1s",
-        transitionDelay: "0.05s",
+
         "&:hover": {
           backgroundColor: "board.hoverCard",
-          transition: "background 0s",
+          transition: "background-color 0s",
           transitionDelay: "0s",
         },
       }}
@@ -91,7 +90,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
       <CardContent sx={{ padding: 1, position: "relative" }}>
         <Typography
           variant="body1"
-          sx={{ wordWrap: "break-word", fontWeight: "bold" }}
+          sx={{ wordWrap: "break-word", fontWeight: 500 }}
         >
           {title}
         </Typography>

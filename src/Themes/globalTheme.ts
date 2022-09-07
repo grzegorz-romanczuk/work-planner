@@ -43,6 +43,9 @@ declare module "@mui/material/Typography" {
 }
 
 const defaultTypography = {
+  body1: {
+    fontSize: "14px",
+  },
   h3: {
     fontSize: "1.2em",
     fontWeight: "bold",
@@ -64,7 +67,7 @@ const defaultTypography = {
     fontWeight: "bold",
   },
   themeText: {
-    fontSize: "0.9em",
+    fontSize: "1em",
     fontWeight: 700,
     fontFamily: "Barlow Condensed",
   },
@@ -120,13 +123,13 @@ export const globalDarkTheme = createTheme({
       light: "#ffad42",
       main: "#f57c00",
       dark: "#bb4d00",
-      contrastText: "#ffffff",
+      contrastText: "#000000",
     },
     secondary: {
       light: "#484848",
       main: "#212121",
       dark: "#000000",
-      contrastText: "#000000",
+      contrastText: "#ffffff",
     },
     background: {},
     board: {},
