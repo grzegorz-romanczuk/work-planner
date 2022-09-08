@@ -61,7 +61,7 @@ function App() {
                 minWidth: 0,
               }}
             >
-              <BoardContainer date={date} />
+              <BoardContainer />
             </Box>
           </Box>
         </Box>

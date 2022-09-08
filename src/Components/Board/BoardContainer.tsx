@@ -3,6 +3,8 @@ import { Board } from "./Board";
 import { BoardCard } from "./BoardCard";
 import { BoardColumn } from "./BoardColumn";
 import { columnShapes, State } from "../../Utils/Board.utils";
+import { useSearchParams } from "react-router-dom";
+import { formatUrlDate } from "../../Utils/dateFormatter";
 type TaskShape = {
   date: string;
   state: State;
@@ -14,14 +16,14 @@ type BoardDataType = {
   tasks?: Array<TaskShape>;
 };
 
-export type BoardContainerProps = {
-  date: string;
-};
+export type BoardContainerProps = {};
 
 export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
-  const { date } = props;
   const [boardData, setBoardData] = useState<BoardDataType>({});
   const [content, setContent] = useState<JSX.Element[] | undefined>(undefined);
+  const [searchParams] = useSearchParams();
+  const getDate = searchParams.get("date") || new Date();
+  const date = formatUrlDate(new Date(getDate));
 
   useEffect(() => {
     const getColumnContent = (state: State) => {

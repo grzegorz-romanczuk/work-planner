@@ -4,12 +4,14 @@ declare module "@mui/material/styles" {
   interface TypographyVariants {
     buttonText: React.CSSProperties;
     themeText: React.CSSProperties;
+    calendarDate: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
     buttonText?: React.CSSProperties;
     themeText?: React.CSSProperties;
+    calendarDate?: React.CSSProperties;
   }
 
   interface Pallete {
@@ -31,6 +33,7 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     buttonText: true;
     themeText: true;
+    calendarDate: true;
   }
   interface ButtonPropsColorOverrides {
     board: {
@@ -71,6 +74,10 @@ const defaultTypography = {
     fontWeight: 700,
     fontFamily: "Barlow Condensed",
   },
+  calendarDate: {
+    fontSize: "2.5em",
+    fontWeight: 400,
+  },
 };
 
 export const globalLightTheme = createTheme({
@@ -88,10 +95,7 @@ export const globalLightTheme = createTheme({
       dark: "#aeaeae",
       contrastText: "#000000",
     },
-    background: {
-      default: "#eeeeee",
-      paper: "#ffffff",
-    },
+    background: {},
     board: {
       column: "#efefef",
       buttonBackground: "#eeeeeef2",
@@ -133,6 +137,9 @@ export const globalDarkTheme = createTheme({
     },
     background: {},
     board: {},
+    text: {
+      primary: "#eeeeee",
+    },
   },
   spacing: 8,
   breakpoints: {

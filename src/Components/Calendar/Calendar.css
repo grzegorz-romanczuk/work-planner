@@ -5,3 +5,7 @@
 .MuiPickerStaticWrapper-content {
   background-color: transparent;
 }
+
+.MuiCalendarPicker-root .MuiPickersDay-root:not(.Mui-selected) {
+  border-width: 2px;
+}

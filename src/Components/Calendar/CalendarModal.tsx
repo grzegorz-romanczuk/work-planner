@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { Box } from "@mui/system";
-import { useTheme } from "@mui/material";
+import { Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { CalendarClosedModal } from "./CalendarClosedModal";
 import { Calendar } from "./Calendar";
+import { useSearchParams, createSearchParams } from "react-router-dom";
+import { formatCalendarDate, formatUrlDate } from "../../Utils/dateFormatter";
 
 export const CalendarModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const date = searchParams.get("date") || formatUrlDate(new Date());
   const theme = useTheme();
+  const lgMediaQuery = useMediaQuery(theme.breakpoints.up("lg"));
+  const [isOpen, setIsOpen] = useState(lgMediaQuery ? true : false);
+
+  const onChangeHandler = (value: string) => {
+    const date = new Date(value);
+    setSearchParams(createSearchParams({ date: formatUrlDate(date) }));
+  };
+
   const openHandler = () => {
     setIsOpen(!isOpen);
   };
@@ -34,7 +45,34 @@ export const CalendarModal = () => {
           overflow: "clip",
         }}
       >
-        <Calendar />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "clip",
+            width: { xs: "100%", sm: "320px" },
+          }}
+        >
+          <Typography
+            variant="calendarDate"
+            sx={{ width: "auto", textAlign: "center" }}
+          >
+            {formatCalendarDate(new Date(date))}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "clip",
+            width: { xs: "100%", sm: "320px" },
+          }}
+        >
+          <Divider sx={{ my: 1 }} />
+        </Box>
+        <Box>
+          <Calendar date={date} onChange={onChangeHandler} />
+        </Box>
       </Box>
       <CalendarClosedModal isOpen={isOpen} onClick={openHandler} />
     </React.Fragment>
