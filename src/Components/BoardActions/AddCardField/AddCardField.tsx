@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { State } from "../../../Utils/Board.utils";
+
 import { AddCardButton } from "./AddCardButton";
 import { AddCardForm } from "./AddCardForm";
 
-export type AddCardFieldProps = {};
+export type AddCardFieldProps = {
+  date: string;
+  state: State;
+  addTask: (title: string, headerColor: string | undefined) => void;
+};
 
-export const AddCardField: React.FC<AddCardFieldProps> = (props) => {
+export const AddCardField: React.FC<AddCardFieldProps> = (
+  { date, state, addTask },
+  props
+) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const openHandler = () => {
@@ -17,7 +26,12 @@ export const AddCardField: React.FC<AddCardFieldProps> = (props) => {
 
   // const onSubmitHandler = (event) => {};
   return isOpen ? (
-    <AddCardForm closeForm={closeHandler} />
+    <AddCardForm
+      state={state}
+      date={date}
+      addTask={addTask}
+      closeForm={closeHandler}
+    />
   ) : (
     <AddCardButton onClick={openHandler} />
   );

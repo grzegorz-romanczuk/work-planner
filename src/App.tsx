@@ -1,50 +1,91 @@
-import { ThemeProvider } from "@emotion/react";
-import { CssBaseline } from "@mui/material";
-import React from "react";
-import { Board } from "./Components/Board/Board";
-import { BoardCard } from "./Components/Board/BoardCard";
-import { BoardColumn } from "./Components/Board/BoardColumn";
-import { globalLightTheme } from "./Themes/globalTheme";
+import {
+  Box,
+  CssBaseline,
+  ThemeProvider,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
+import React, { useState } from "react";
+
+import { BoardContainer } from "./Components/Board/BoardContainer";
+import { globalLightTheme, globalDarkTheme } from "./Themes/globalTheme";
+import { Navbar } from "./Components/Navbar/Navbar";
+import { CalendarModal } from "./Components/Calendar/CalendarModal";
 
 function App() {
+  const theme = useTheme();
+  const lgMediaQuery = useMediaQuery(theme.breakpoints.up("lg"));
+  const [calendarExpanded, setCalendarExpanded] = useState(
+    lgMediaQuery ? true : false
+  );
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkModeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setIsDarkMode(!event.target.checked);
+  };
+
+  const toggleCalendar = () => {
+    setCalendarExpanded(!calendarExpanded);
+  };
+
   return (
-    <ThemeProvider theme={globalLightTheme}>
-      <CssBaseline />
-      <Board>
-        <BoardColumn title="To Do" headerColor="#64dd17">
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-          <BoardCard title="title" headerColor="#64dd17">
-            {" "}
-          </BoardCard>
-        </BoardColumn>
-        <BoardColumn title="In Progress" headerColor="#536dfe">
-          <BoardCard title="title"> </BoardCard>
-        </BoardColumn>
-        <BoardColumn title="Completed" headerColor="#ef6c00">
-          <BoardCard title="title"> </BoardCard>
-        </BoardColumn>
-      </Board>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={isDarkMode ? globalDarkTheme : globalLightTheme}>
+        <CssBaseline />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+          }}
+        >
+          <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
+            <Navbar
+              toggleDarkMode={toggleDarkModeHandler}
+              isDarkMode={isDarkMode}
+              toggleCalendar={toggleCalendar}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flex: 1,
+              minHeight: 0,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                minWidth: 0,
+              }}
+            >
+              <CalendarModal
+                toggleDarkMode={toggleDarkModeHandler}
+                isDarkMode={isDarkMode}
+                toggleCalendar={toggleCalendar}
+                calendarExpanded={calendarExpanded}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                flex: 1,
+                minWidth: 0,
+              }}
+            >
+              <BoardContainer />
+            </Box>
+          </Box>
+        </Box>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 

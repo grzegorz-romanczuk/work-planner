@@ -5,12 +5,13 @@ import {
   CardContent,
   CardHeader,
   Grid,
-  StackProps,
+  GridProps,
 } from "@mui/material";
 import { Stack, SxProps } from "@mui/system";
 import { AddCardField } from "../BoardActions/AddCardField/AddCardField";
+import { State } from "../../Utils/Board.utils";
 
-export type BoardColumnProps = StackProps &
+export type BoardColumnProps = GridProps &
   SxProps & {
     title?: React.ReactNode;
     subheader?: React.ReactNode;
@@ -19,11 +20,14 @@ export type BoardColumnProps = StackProps &
     borderRadius?: number;
     padding?: number | string;
     headerColor?: string;
+    date: string;
+    state: State;
+    addTask: (title: string, headerColor?: string | undefined) => void;
   };
 
 const defaultProps: Partial<BoardColumnProps> = {
   minWidth: { xs: "100%", sm: "20em" },
-  maxWidth: 350,
+  maxWidth: { xs: "100%", sm: "20em" },
   maxHeight: "100%",
   raised: true,
   borderRadius: 1,
@@ -49,17 +53,19 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     height,
     padding,
     direction,
-    justifyContent,
-    alignItems,
     spacing,
+    id,
+    date,
+    state,
+    addTask,
   } = {
     ...defaultProps,
     ...props,
   };
 
   return (
-    <Grid container sx={{ height, minWidth, maxWidth }}>
-      <Grid xs={12} sx={{ height }}>
+    <Grid container sx={{ height, minWidth, maxWidth }} id={id}>
+      <Grid item xs={12} sx={{ height }}>
         <Card
           sx={{
             maxHeight,
@@ -85,7 +91,7 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
             </Stack>
           </CardContent>
           <CardActions>
-            <AddCardField />
+            <AddCardField state={state} addTask={addTask} date={date} />
           </CardActions>
         </Card>
       </Grid>
