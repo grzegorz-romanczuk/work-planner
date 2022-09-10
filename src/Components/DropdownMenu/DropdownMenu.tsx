@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { DropdownMenuButton } from "./DropdownMenuButton";
 
-type DropdownMenuProps = {};
+type DropdownMenuProps = { toggleCalendar?: () => void };
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { toggleCalendar } = props;
 
-  const openHandler = () => {
-    setIsOpen(!isOpen);
-  };
-  return <DropdownMenuButton isOpen={isOpen} onClick={openHandler} />;
+  return <DropdownMenuButton onClick={toggleCalendar} />;
 };

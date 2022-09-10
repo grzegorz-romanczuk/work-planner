@@ -14,13 +14,13 @@ export const CalendarClosedModal: React.FC<CalendarClosedModalProps> = (
   const { onClick, isOpen } = props;
 
   const theme = useTheme();
-  const lgMediaQuery = useMediaQuery(theme.breakpoints.up("lg"));
+  const smMediaQuery = useMediaQuery("(min-width: 768px)");
 
   const bgColor =
     theme.palette.mode === "dark"
       ? theme.palette.secondary.light
       : theme.palette.secondary.dark;
-  return lgMediaQuery ? (
+  return smMediaQuery ? (
     <Box
       sx={{
         width: 25,
@@ -48,34 +48,5 @@ export const CalendarClosedModal: React.FC<CalendarClosedModalProps> = (
         fontSize="large"
       />{" "}
     </Box>
-  ) : (
-    <IconButton
-      onClick={onClick}
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: "0%",
-        translate: "15% 125%",
-        borderRadius: "50%",
-        height: "fit-content",
-        width: "fit-content",
-        boxShadow: "0 0 5px 0 #000000",
-        backgroundColor: theme.palette.primary.main,
-        zIndex: 3,
-        "&:hover": {
-          backgroundColor: theme.palette.primary.dark,
-        },
-        "&:click": {
-          backgroundColor: theme.palette.primary.light,
-        },
-      }}
-    >
-      <EventNoteIcon
-        sx={{
-          color: theme.palette.getContrastText(theme.palette.primary.main),
-          fontSize: "28px",
-        }}
-      />
-    </IconButton>
-  );
+  ) : null;
 };

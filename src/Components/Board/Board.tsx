@@ -13,7 +13,7 @@ const defaultProps: Partial<BoardProps> = {
   height: "100%",
   maxHeight: "100%",
   mx: { sm: "auto" },
-  px: { xs: 1, sm: 3 },
+  px: { xs: 1, sm: 4 },
   py: { xs: 1, sm: 2 },
 };
 

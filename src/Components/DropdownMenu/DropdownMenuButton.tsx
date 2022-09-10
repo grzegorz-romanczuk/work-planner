@@ -1,15 +1,14 @@
 import { MenuRounded } from "@mui/icons-material";
-import { IconButton, SvgIcon, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import { IconButton, useTheme } from "@mui/material";
+import React from "react";
 type DropdownMenuButtonProps = {
-  isOpen?: boolean;
   onClick?: () => void;
 };
 
 export const DropdownMenuButton: React.FC<DropdownMenuButtonProps> = (
   props
 ) => {
-  const { isOpen, onClick } = props;
+  const { onClick } = props;
   const theme = useTheme();
   return (
     <IconButton
@@ -20,6 +19,7 @@ export const DropdownMenuButton: React.FC<DropdownMenuButtonProps> = (
         p: 1,
         color: theme.palette.secondary.contrastText,
       }}
+      onClick={onClick}
     >
       <MenuRounded />
     </IconButton>

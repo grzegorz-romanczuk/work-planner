@@ -11,11 +11,12 @@ import { SxProps, StackProps } from "@mui/system";
 import { SearchField } from "../SearchField/SearchField";
 import { NavbarLogo } from "./NavbarLogo";
 import { DarkModeSwitch } from "../DarkModeSwitch/DarkModeSwitch";
-import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
+import { DropdownMenuButton } from "../DropdownMenu/DropdownMenuButton";
 export type NavbarProps = SxProps &
   StackProps & {
     toggleDarkMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     isDarkMode?: boolean;
+    toggleCalendar?: () => void;
   };
 
 const defaultProps: NavbarProps = {
@@ -24,13 +25,13 @@ const defaultProps: NavbarProps = {
 };
 
 export const Navbar: React.FC<NavbarProps> = (props) => {
-  const { height, minHeight, toggleDarkMode, isDarkMode } = {
+  const { height, minHeight, toggleDarkMode, isDarkMode, toggleCalendar } = {
     ...defaultProps,
     ...props,
   };
 
   const theme = useTheme();
-  const smMediaQuery = useMediaQuery("(min-width: 600px)");
+  const smMediaQuery = useMediaQuery("(min-width: 768px)");
 
   return (
     <React.Fragment>
@@ -108,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
                 alignContent: "center",
               }}
             >
-              <DropdownMenu />
+              <DropdownMenuButton onClick={toggleCalendar} />
             </Box>
           )}
         </Toolbar>

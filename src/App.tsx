@@ -1,22 +1,35 @@
-import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  Box,
+  CssBaseline,
+  ThemeProvider,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
 import React, { useState } from "react";
 
 import { BoardContainer } from "./Components/Board/BoardContainer";
-import { dateFormatter } from "./Utils/dateFormatter";
 import { globalLightTheme, globalDarkTheme } from "./Themes/globalTheme";
 import { Navbar } from "./Components/Navbar/Navbar";
 import { CalendarModal } from "./Components/Calendar/CalendarModal";
 
 function App() {
-  const date = dateFormatter(new Date());
+  const theme = useTheme();
+  const lgMediaQuery = useMediaQuery(theme.breakpoints.up("lg"));
+  const [calendarExpanded, setCalendarExpanded] = useState(
+    lgMediaQuery ? true : false
+  );
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleDarkModeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setIsDarkMode(!event.target.checked);
+  };
+
+  const toggleCalendar = () => {
+    setCalendarExpanded(!calendarExpanded);
   };
 
   return (
@@ -34,6 +47,7 @@ function App() {
             <Navbar
               toggleDarkMode={toggleDarkModeHandler}
               isDarkMode={isDarkMode}
+              toggleCalendar={toggleCalendar}
             />
           </Box>
           <Box
@@ -54,6 +68,8 @@ function App() {
               <CalendarModal
                 toggleDarkMode={toggleDarkModeHandler}
                 isDarkMode={isDarkMode}
+                toggleCalendar={toggleCalendar}
+                calendarExpanded={calendarExpanded}
               />
             </Box>
             <Box

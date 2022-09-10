@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Container } from "@mui/system";
+import React from "react";
+import { Box } from "@mui/system";
 import { Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { CalendarClosedModal } from "./CalendarClosedModal";
 import { Calendar } from "./Calendar";
@@ -11,27 +11,29 @@ import { SearchField } from "../SearchField/SearchField";
 type CalendarModalProps = {
   isDarkMode?: boolean;
   toggleDarkMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  toggleCalendar?: () => void;
+  calendarExpanded?: boolean;
 };
 
 export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
-  const { isDarkMode, toggleDarkMode } = props;
+  const { isDarkMode, toggleDarkMode, toggleCalendar, calendarExpanded } =
+    props;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const date = searchParams.get("date") || formatUrlDate(new Date());
   const theme = useTheme();
-  const lgMediaQuery = useMediaQuery(theme.breakpoints.up("lg"));
-  const smMediaQuery = useMediaQuery(theme.breakpoints.up("sm"));
-  const smallComponentsMediaQuery = useMediaQuery("(min-width: 600px)");
-  const [isOpen, setIsOpen] = useState(lgMediaQuery ? true : false);
+
+  const transformMediaQuery = useMediaQuery(
+    theme.breakpoints.between("sm", 768)
+  );
+
+  const scrollMediaQuery = useMediaQuery("(max-height: 560px)");
+  const smallComponentsMediaQuery = useMediaQuery("(min-width: 768px)");
 
   const onChangeHandler = (value: Date | null) => {
     if (value) {
       setSearchParams(createSearchParams({ date: formatUrlDate(value) }));
     }
-  };
-
-  const openHandler = () => {
-    setIsOpen(!isOpen);
   };
 
   const bgColor =
@@ -45,12 +47,13 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
     overflow: "clip",
     width: { xs: "100vw", sm: "320px" },
     minWidth: "320px",
-    height: "fit-content",
+    minHeight: "fit-content",
+    justifyContent: "center",
     mx: "auto",
   };
 
   const divider = (
-    <Box sx={{ ...sxBoxProps }}>
+    <Box sx={{ ...sxBoxProps, minHeight: 17 }}>
       <Divider sx={{ my: 1 }} />
     </Box>
   );
@@ -61,13 +64,14 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         sx={{
           ...sxBoxProps,
           flexDirection: "row",
-          justifyContent: "center",
+
           mt: 1,
+          minHeight: 28,
         }}
       >
         <Typography
           variant="themeText"
-          sx={{ height: "fit-content", my: "auto", mx: 1 }}
+          sx={{ justifyContent: "center", my: "auto", mx: 1 }}
         >
           {isDarkMode ? "DARKMODE" : "LIGHTMODE"}
         </Typography>
@@ -77,7 +81,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         />
       </Box>
       {divider}
-      <Box sx={{ ...sxBoxProps }}>
+      <Box sx={{ ...sxBoxProps, minHeight: 32 }}>
         <SearchField sxProps={{ width: "auto" }} />
       </Box>
       {divider}
@@ -88,26 +92,32 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
     <React.Fragment>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: "block",
           minHeight: 0,
           backgroundColor: bgColor,
-          visibility: isOpen ? "visible" : "hidden",
-          width: smMediaQuery
-            ? isOpen
+          visibility: calendarExpanded ? "visible" : "hidden",
+          width: smallComponentsMediaQuery
+            ? calendarExpanded
               ? { xs: "100%", sm: "320px" }
               : 0
             : { xs: "100%", sm: "320px" },
-          height: smMediaQuery ? "100%" : isOpen ? { xs: "100%" } : 0,
+          height: smallComponentsMediaQuery
+            ? "100%"
+            : calendarExpanded
+            ? { xs: "100%" }
+            : 0,
           transition: "width 0.5s, visibility 0.5s, height 0.5s",
-          position: { xs: "fixed", sm: "sticky" },
+          position: smallComponentsMediaQuery ? "sticky" : "fixed",
           zIndex: 2,
           boxShadow: "0 0 5px 0 #000000",
-          overflow: "clip",
+          overflowY: scrollMediaQuery ? "auto" : "hidden",
+          overflowX: "clip",
+          left: transformMediaQuery ? "100%" : 0,
+          translate: transformMediaQuery ? "-100% 0" : "0 0",
         }}
       >
         {!smallComponentsMediaQuery && mobileMenuComponents}
-        <Box sx={{ ...sxBoxProps }}>
+        <Box sx={{ ...sxBoxProps, minHeight: 96 }}>
           <Typography
             variant="calendarDate"
             sx={{ width: "auto", textAlign: "center" }}
@@ -120,7 +130,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
           <Calendar date={date} onChange={onChangeHandler} />
         </Box>
       </Box>
-      <CalendarClosedModal isOpen={isOpen} onClick={openHandler} />
+      <CalendarClosedModal isOpen={calendarExpanded} onClick={toggleCalendar} />
     </React.Fragment>
   );
 };
