@@ -1,8 +1,9 @@
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment, SxProps, TextField } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
-export type SearchFieldProps = {};
+export type SearchFieldProps = { sxProps?: SxProps };
 export const SearchField: React.FC<SearchFieldProps> = (props) => {
+  const { sxProps } = props;
   return (
     <TextField
       color="primary"
@@ -27,6 +28,7 @@ export const SearchField: React.FC<SearchFieldProps> = (props) => {
         minWidth: 200,
         boxShadow: "inset 0px 0px 5px 0px rgba(0, 0, 0, 0.5)",
         mx: 2,
+        ...sxProps,
       }}
     />
   );

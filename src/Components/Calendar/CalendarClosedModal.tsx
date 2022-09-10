@@ -53,9 +53,9 @@ export const CalendarClosedModal: React.FC<CalendarClosedModalProps> = (
       onClick={onClick}
       sx={{
         position: "absolute",
-        top: "100%",
-        left: "100%",
-        translate: "-125% -125%",
+        top: "50%",
+        left: "0%",
+        translate: "15% 125%",
         borderRadius: "50%",
         height: "fit-content",
         width: "fit-content",
@@ -71,9 +71,9 @@ export const CalendarClosedModal: React.FC<CalendarClosedModalProps> = (
       }}
     >
       <EventNoteIcon
-        fontSize="large"
         sx={{
           color: theme.palette.getContrastText(theme.palette.primary.main),
+          fontSize: "28px",
         }}
       />
     </IconButton>

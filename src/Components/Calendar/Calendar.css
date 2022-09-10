@@ -1,5 +1,6 @@
 .MuiCalendarPicker-root {
   background-color: transparent;
+  overflow: clip;
 }
 
 .MuiPickerStaticWrapper-content {
@@ -8,4 +9,8 @@
 
 .MuiCalendarPicker-root .MuiPickersDay-root:not(.Mui-selected) {
   border-width: 2px;
+}
+
+.MuiCalendarPicker-viewTransitionContainer {
+  overflow: clip;
 }

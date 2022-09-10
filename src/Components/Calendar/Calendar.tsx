@@ -1,16 +1,19 @@
 import React from "react";
 import { CalendarPicker } from "@mui/x-date-pickers-pro";
-import { createSearchParams, useSearchParams } from "react-router-dom";
 
 import "./Calendar.css";
 
 type CalendarProps = {
-  onChange?: (value: string) => void;
+  onChange: (value: Date | null) => void;
   date: string;
 };
 
 export const Calendar: React.FC<CalendarProps> = (props) => {
   const { onChange, date } = props;
-  // @ts-ignore
-  return <CalendarPicker date={new Date(date)} onChange={onChange} />;
+
+  return (
+    <React.Fragment>
+      <CalendarPicker date={new Date(date)} onChange={onChange} />;
+    </React.Fragment>
+  );
 };

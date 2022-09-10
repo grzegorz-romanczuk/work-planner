@@ -51,7 +51,10 @@ function App() {
                 minWidth: 0,
               }}
             >
-              <CalendarModal />
+              <CalendarModal
+                toggleDarkMode={toggleDarkModeHandler}
+                isDarkMode={isDarkMode}
+              />
             </Box>
             <Box
               sx={{
