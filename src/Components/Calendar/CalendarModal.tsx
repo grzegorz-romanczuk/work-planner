@@ -64,7 +64,6 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         sx={{
           ...sxBoxProps,
           flexDirection: "row",
-
           mt: 1,
           minHeight: 28,
         }}
@@ -75,10 +74,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         >
           {isDarkMode ? "DARKMODE" : "LIGHTMODE"}
         </Typography>
-        <DarkModeSwitch
-          defaultChecked={!isDarkMode}
-          onChange={toggleDarkMode}
-        />
+        <DarkModeSwitch checked={!isDarkMode} onChange={toggleDarkMode} />
       </Box>
       {divider}
       <Box sx={{ ...sxBoxProps, minHeight: 32 }}>
@@ -94,6 +90,11 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         sx={{
           display: "block",
           minHeight: 0,
+          maxHeight: smallComponentsMediaQuery
+            ? "100%"
+            : calendarExpanded
+            ? { xs: "100%", sm: "100vh" }
+            : 0,
           backgroundColor: bgColor,
           visibility: calendarExpanded ? "visible" : "hidden",
           width: smallComponentsMediaQuery
@@ -103,10 +104,8 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
             : { xs: "100%", sm: "320px" },
           height: smallComponentsMediaQuery
             ? "100%"
-            : calendarExpanded
-            ? { xs: "100%" }
-            : 0,
-          transition: "width 0.5s, visibility 0.5s, height 0.5s",
+            : { xs: "100%", sm: "fit-content" },
+          transition: "width 0.3s, visibility 0.3s, max-height 0.3s",
           position: smallComponentsMediaQuery ? "sticky" : "fixed",
           zIndex: 2,
           boxShadow: "0 0 5px 0 #000000",

@@ -3,9 +3,6 @@ import {
   ButtonBaseProps,
   SxProps,
   Typography,
-  Fade,
-  useTheme,
-  duration,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -34,7 +31,6 @@ export const AddCardButton: React.FC<AddCardButtonProps> = (props) => {
     ...defaultProps,
     ...props,
   };
-  const theme = useTheme();
 
   return (
     <ButtonBase
@@ -48,6 +44,9 @@ export const AddCardButton: React.FC<AddCardButtonProps> = (props) => {
         transition: "background 0.2s, color 0.2s",
         "&:hover": {
           backgroundColor: "board.hoverbuttonBackground",
+        },
+        "&:focus": {
+          backgroundColor: "board.focusbuttonBackground",
         },
       }}
     >

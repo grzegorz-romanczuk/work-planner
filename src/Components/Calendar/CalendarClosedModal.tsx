@@ -1,6 +1,5 @@
-import { Box, useMediaQuery, alpha, useTheme, IconButton } from "@mui/material";
+import { Box, useMediaQuery, alpha, useTheme } from "@mui/material";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import EventNoteIcon from "@mui/icons-material/EventNote";
 import React from "react";
 
 type CalendarClosedModalProps = {

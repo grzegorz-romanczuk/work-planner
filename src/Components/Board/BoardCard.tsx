@@ -1,12 +1,13 @@
-import { Clear } from "@mui/icons-material";
 import {
+  alpha,
   Card,
   CardContent,
   CardHeader,
-  IconButton,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useState } from "react";
+import { RemoveCardButton } from "../BoardActions/RemoveCardButton/RemoveCardButton";
 
 export type BoardCardProps = {
   title?: React.ReactNode;
@@ -45,6 +46,8 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     ...props,
   };
 
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
   const [isHovering, setIsHovering] = useState(false);
 
   const onMouseEnterHandler = () => {
@@ -62,17 +65,15 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
         textAlign: "start",
         borderRadius,
         width: "100%",
-
         "&:hover": {
           backgroundColor: "board.hoverCard",
-          transition: "background-color 0s",
-          transitionDelay: "0s",
         },
       }}
       raised={raised}
       elevation={elevation}
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
+      tabIndex={0}
     >
       {headerColor && (
         <CardHeader
@@ -83,7 +84,9 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
           }
           sx={{
             padding: 0.5,
-            backgroundColor: headerColor,
+            backgroundColor: headerColor
+              ? alpha(headerColor, isDarkMode ? 0.4 : 0.8)
+              : undefined,
           }}
         />
       )}
@@ -94,25 +97,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
         >
           {title}
         </Typography>
-        {isHovering && (
-          <IconButton
-            size="small"
-            onClick={removeTask}
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: "100%",
-              translate: "-115% 15%",
-              backgroundColor: "board.buttonBackground",
-              borderRadius: 1,
-              "&:hover": {
-                backgroundColor: "board.hoverbuttonBackground",
-              },
-            }}
-          >
-            <Clear color="primary" fontSize="inherit" />
-          </IconButton>
-        )}
+        {isHovering && <RemoveCardButton onClick={removeTask} />}
       </CardContent>
     </Card>
   );

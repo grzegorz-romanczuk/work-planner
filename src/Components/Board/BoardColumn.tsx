@@ -6,10 +6,11 @@ import {
   CardHeader,
   Grid,
   GridProps,
+  useTheme,
+  alpha,
 } from "@mui/material";
 import { Stack, SxProps } from "@mui/system";
 import { AddCardField } from "../BoardActions/AddCardField/AddCardField";
-import { State } from "../../Utils/Board.utils";
 
 export type BoardColumnProps = GridProps &
   SxProps & {
@@ -20,14 +21,12 @@ export type BoardColumnProps = GridProps &
     borderRadius?: number;
     padding?: number | string;
     headerColor?: string;
-    date: string;
-    state: State;
     addTask: (title: string, headerColor?: string | undefined) => void;
   };
 
 const defaultProps: Partial<BoardColumnProps> = {
   minWidth: { xs: "100%", sm: "20em" },
-  maxWidth: { xs: "100%", sm: "20em" },
+  maxWidth: { xs: "100%", sm: "20em", xl: "35em" },
   maxHeight: "100%",
   raised: true,
   borderRadius: 1,
@@ -55,14 +54,13 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
     direction,
     spacing,
     id,
-    date,
-    state,
     addTask,
   } = {
     ...defaultProps,
     ...props,
   };
-
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === "dark";
   return (
     <Grid container sx={{ height, minWidth, maxWidth }} id={id}>
       <Grid item xs={12} sx={{ height }}>
@@ -81,7 +79,9 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
             subheader={subheader}
             sx={{
               textAlign: "center",
-              backgroundColor: headerColor,
+              backgroundColor: headerColor
+                ? alpha(headerColor, isDarkMode ? 0.4 : 0.8)
+                : undefined,
               padding,
             }}
           />
@@ -91,7 +91,7 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
             </Stack>
           </CardContent>
           <CardActions>
-            <AddCardField state={state} addTask={addTask} date={date} />
+            <AddCardField addTask={addTask} />
           </CardActions>
         </Card>
       </Grid>

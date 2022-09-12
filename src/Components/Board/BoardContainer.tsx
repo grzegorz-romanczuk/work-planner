@@ -39,7 +39,6 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
             setBoardData((prevState) => {
               const result = { ...prevState };
               result.tasks = result.tasks?.filter((task) => task !== item);
-              console.log(result);
               return result;
             });
           };
@@ -56,15 +55,11 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
     };
 
     const columns = columnShapes.map((item, index) => {
-      const addTaskHandler = (
-        title: string,
-        headerColor?: string | undefined
-      ) => {
-        const task = { date, state: item.state, title };
+      const addTaskHandler = (title: string, headerColor?: string) => {
+        const task = { date, state: item.state, title, headerColor };
         setBoardData((prevState: BoardDataType) => {
           const result = { ...prevState };
           result.tasks ? result.tasks.push(task) : (result.tasks = [task]);
-          console.log(result);
           return result;
         });
       };

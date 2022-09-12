@@ -1,14 +1,11 @@
 import { Add } from "@mui/icons-material";
 import { Button, Grid, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { State } from "../../../Utils/Board.utils";
 import styles from "./AddCardForm.module.css";
 
 export type AddCardFormProps = {
   closeForm: () => void;
   addTask: (title: string, headerColor?: string | undefined) => void;
-  date: string;
-  state: State;
 };
 
 const defaultProps = {
@@ -16,7 +13,7 @@ const defaultProps = {
 };
 
 export const AddCardForm: React.FC<AddCardFormProps> = (props) => {
-  const { closeForm, height, date, state, addTask } = {
+  const { closeForm, height, addTask } = {
     ...props,
     ...defaultProps,
   };

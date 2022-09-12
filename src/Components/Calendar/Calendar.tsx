@@ -13,7 +13,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
 
   return (
     <React.Fragment>
-      <CalendarPicker date={new Date(date)} onChange={onChange} />;
+      <CalendarPicker date={new Date(date)} onChange={onChange} />
     </React.Fragment>
   );
 };
