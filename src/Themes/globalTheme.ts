@@ -148,7 +148,7 @@ export const globalDarkTheme = createTheme({
       buttonBackground: "#111111f2",
       hoverbuttonBackground: "#212121f2",
       focusbuttonBackground: "#222222f2",
-      hoverCard: "#111111",
+      hoverCard: "#222222",
     },
     text: {
       primary: "#eeeeee",

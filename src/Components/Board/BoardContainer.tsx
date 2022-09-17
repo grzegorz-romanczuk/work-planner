@@ -2,19 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Board } from "./Board";
 import { BoardCard } from "./BoardCard";
 import { BoardColumn } from "./BoardColumn";
-import { columnShapes, State } from "../../Utils/Board.utils";
+import { columnShapes } from "../../Utils/Board.utils";
+import { State, BoardDataType, TaskShape } from "../../Utils/types";
 import { useSearchParams } from "react-router-dom";
 import { formatUrlDate } from "../../Utils/dateFormatter";
-type TaskShape = {
-  date: string;
-  state: State;
-  title: string;
-  headerColor?: string;
-};
-
-type BoardDataType = {
-  tasks?: Array<TaskShape>;
-};
 
 export type BoardContainerProps = {};
 
@@ -42,12 +33,24 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
               return result;
             });
           };
+          const editTaskHandler = (newTask: TaskShape) => {
+            setBoardData((prevState) => {
+              const result = { ...prevState };
+              if (result.tasks) {
+                const index = result.tasks.indexOf(item);
+                result.tasks[index] = newTask;
+              }
+              return result;
+            });
+          };
+
           return (
             <BoardCard
               key={index}
               removeTask={removeTaskHandler}
+              editTask={editTaskHandler}
               id={`${state}-task-${index}`}
-              {...item}
+              taskData={item}
             />
           );
         });
