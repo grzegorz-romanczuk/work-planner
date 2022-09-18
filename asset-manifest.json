@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/work-planner/static/css/main.6c3cef62.css",
-    "main.js": "/work-planner/static/js/main.a530c202.js",
+    "main.js": "/work-planner/static/js/main.c8755902.js",
     "static/js/787.dd474123.chunk.js": "/work-planner/static/js/787.dd474123.chunk.js",
     "index.html": "/work-planner/index.html",
     "main.6c3cef62.css.map": "/work-planner/static/css/main.6c3cef62.css.map",
-    "main.a530c202.js.map": "/work-planner/static/js/main.a530c202.js.map",
+    "main.c8755902.js.map": "/work-planner/static/js/main.c8755902.js.map",
     "787.dd474123.chunk.js.map": "/work-planner/static/js/787.dd474123.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6c3cef62.css",
-    "static/js/main.a530c202.js"
+    "static/js/main.c8755902.js"
   ]
 }
