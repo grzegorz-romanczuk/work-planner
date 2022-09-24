@@ -12,8 +12,8 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import React from "react";
-import { State } from "../../../Utils/types";
-import { reducerAction } from "../../Board/BoardCard";
+import { State } from "../../../../Utils/types";
+import { reducerAction } from "../../../Board/BoardCard";
 
 type EditStateFieldProps = {
   state: State;

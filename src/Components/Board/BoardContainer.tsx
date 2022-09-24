@@ -58,8 +58,8 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
     };
 
     const columns = columnShapes.map((item, index) => {
-      const addTaskHandler = (title: string, headerColor?: string) => {
-        const task = { date, state: item.state, title, headerColor };
+      const addTaskHandler = (title: string) => {
+        const task = { date, state: item.state, title, time: null };
         setBoardData((prevState: BoardDataType) => {
           const result = { ...prevState };
           result.tasks ? result.tasks.push(task) : (result.tasks = [task]);

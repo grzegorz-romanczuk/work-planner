@@ -3,8 +3,8 @@ import { Box, TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers-pro";
 import { isValid } from "date-fns";
 import React, { useState } from "react";
-import { formatUrlDate } from "../../../Utils/dateFormatter";
-import { reducerAction } from "../../Board/BoardCard";
+import { formatUrlDate } from "../../../../Utils/dateFormatter";
+import { reducerAction } from "../../../Board/BoardCard";
 
 type EditDateFieldProps = {
   taskDate: string;
@@ -19,13 +19,11 @@ export const EditDateField: React.FC<EditDateFieldProps> = (props) => {
   const onAcceptHandler = (value: Date | null) => {
     if (!isError && value && isValid(value)) {
       taskDispatch({ type: "edit", result: { date: formatUrlDate(value) } });
-      console.log(value);
     }
   };
   const onBlurHandler = () => {
     if (!isError && date && isValid(date)) {
       taskDispatch({ type: "edit", result: { date: formatUrlDate(date) } });
-      console.log(date);
     }
   };
 

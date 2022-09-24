@@ -2,6 +2,7 @@ export type TaskShape = {
   date: string;
   state: State;
   title: string;
+  schedule?: { from?: string | null; to?: string | null };
   headerColor?: string;
   description?: string;
 };

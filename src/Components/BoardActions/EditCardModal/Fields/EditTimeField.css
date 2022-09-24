@@ -1,0 +1,16 @@
+.MuiTimePickerToolbar-hourMinuteLabel {
+  align-items: flex-start !important;
+  font-size: 2em;
+}
+
+.MuiPickersToolbar-root .MuiTypography-root {
+  font-weight: bold;
+}
+
+.MuiPickersToolbar-content {
+  align-items: center !important;
+}
+
+.MuiTimePickerToolbar-hourMinuteLabel .MuiButtonBase-root {
+  font-size: 1em;
+}

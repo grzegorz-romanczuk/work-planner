@@ -11,3 +11,11 @@ export const formatCalendarDate = (date: Date) => {
 export const formatUrlDate = (date: Date) => {
   return format(date, "dd-MMM-yyy");
 };
+
+export const format12Time = (date: Date) => {
+  return format(date, "hh:mm a");
+};
+
+export const format24Time = (date: Date) => {
+  return format(date, "HH:mm");
+};

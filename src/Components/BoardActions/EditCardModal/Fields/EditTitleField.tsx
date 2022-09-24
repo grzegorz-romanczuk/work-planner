@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Title } from "@mui/icons-material";
-import { Box, TextField } from "@mui/material";
-import { reducerAction } from "../../Board/BoardCard";
+import { Box, FormControl, FormHelperText, TextField } from "@mui/material";
+import { reducerAction } from "../../../Board/BoardCard";
 
 type EditTitleFieldProps = {
   taskTitle: string;
@@ -21,14 +21,13 @@ export const EditTitleField: React.FC<EditTitleFieldProps> = (props) => {
       return;
     }
 
-    value.length > 255 ? setTitle(value.slice(0, 255)) : setTitle(value);
+    value.length > 256 ? setTitle(value.slice(0, 256)) : setTitle(value);
   };
 
   const onBlurHandler = () => {
     const isValid = title.length > 0;
     setIsError(!isValid);
     isValid && taskDispatch({ type: "edit", result: { title } });
-    console.log(isValid);
   };
 
   return (
@@ -37,25 +36,30 @@ export const EditTitleField: React.FC<EditTitleFieldProps> = (props) => {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        alignItems: "center",
+        flex: 1,
       }}
     >
       <Title sx={{ width: 48 }} />
-      <TextField
-        variant="outlined"
-        value={title}
-        size="small"
-        onChange={onChangeHandler}
-        onBlur={onBlurHandler}
+      <FormControl
         sx={{
-          border: "none",
-          py: 0,
           width: "100%",
         }}
-        {...(isError
-          ? { label: "Title is required", error: true }
-          : { label: "Title" })}
-      />
+      >
+        <TextField
+          variant="standard"
+          value={title}
+          size="small"
+          onChange={onChangeHandler}
+          onBlur={onBlurHandler}
+          hiddenLabel
+          error={isError}
+        />
+        {isError && (
+          <FormHelperText error id="outlined-weight-helper-text">
+            Title is required
+          </FormHelperText>
+        )}
+      </FormControl>
     </Box>
   );
 };

@@ -1,12 +1,17 @@
+import { Schedule } from "@mui/icons-material";
 import {
   alpha,
+  Box,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   Typography,
   useTheme,
 } from "@mui/material";
+import { display } from "@mui/system";
 import React, { useReducer, useState } from "react";
+import { format24Time } from "../../Utils/dateFormatter";
 import { TaskShape } from "../../Utils/types";
 import { EditCardModal } from "../BoardActions/EditCardModal/EditCardModal";
 import { RemoveCardButton } from "../BoardActions/RemoveCardButton/RemoveCardButton";
@@ -82,6 +87,39 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     editTask(cardState);
   };
 
+  const cardSchedule = cardState.schedule?.from && (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
+      <Schedule />
+      <Typography>
+        {cardState.schedule?.from && cardState.schedule?.to
+          ? `${format24Time(
+              new Date(cardState.schedule?.from)
+            )} - ${format24Time(new Date(cardState.schedule?.to))}`
+          : cardState.schedule?.from
+          ? `${format24Time(new Date(cardState.schedule?.from))}`
+          : "None"}
+      </Typography>
+    </Box>
+  );
+
+  const cardDetails = (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        columnGap: 1,
+      }}
+    >
+      {cardSchedule}
+    </Box>
+  );
+
   return (
     <React.Fragment>
       <Card
@@ -117,15 +155,25 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
             }}
           />
         )}
-        <CardContent sx={{ padding: 1, position: "relative" }}>
+        <CardContent
+          sx={{
+            padding: 1,
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            rowGap: 1,
+          }}
+        >
           <Typography
             variant="body1"
             sx={{ wordWrap: "break-word", fontWeight: 500 }}
           >
             {cardState.title}
           </Typography>
+
           {isHovering && <RemoveCardButton onClick={removeTask} />}
         </CardContent>
+        <CardActions>{cardDetails}</CardActions>
       </Card>
       <EditCardModal
         open={isOpen}

@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <SearchField />
+                {/* <SearchField /> */}
               </Box>
               <Box
                 sx={{
