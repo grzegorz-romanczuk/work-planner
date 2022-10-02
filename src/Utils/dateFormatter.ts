@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 
 export const dateFormatter = (date: Date) => {
   return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
@@ -13,9 +13,9 @@ export const formatUrlDate = (date: Date) => {
 };
 
 export const format12Time = (date: Date) => {
-  return format(date, "hh:mm a");
+  return isValid(date) ? format(date, "hh:mm a") : null;
 };
 
 export const format24Time = (date: Date) => {
-  return format(date, "HH:mm");
+  return isValid(date) ? format(date, "HH:mm") : null;
 };

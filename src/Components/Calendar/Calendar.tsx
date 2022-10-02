@@ -13,7 +13,15 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
 
   return (
     <React.Fragment>
-      <CalendarPicker date={new Date(date)} onChange={onChange} />
+      <CalendarPicker
+        date={new Date(date)}
+        onChange={onChange}
+        openTo="day"
+        minDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
+        maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+        autoFocus
+        views={["month", "day"]}
+      />
     </React.Fragment>
   );
 };

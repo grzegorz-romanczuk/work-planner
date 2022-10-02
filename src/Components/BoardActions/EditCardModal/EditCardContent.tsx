@@ -8,6 +8,7 @@ import { EditDateField } from "./Fields/EditDateField";
 import { EditColorField } from "./Fields/EditColorField";
 import { EditTimeField } from "./Fields/EditTimeField";
 import { EditScheduleField } from "./Fields/EditScheduleField";
+import { EditAlarmField } from "./Fields/EditAlarmField";
 
 type EditCardContentProps = {
   taskState: reducerState;
@@ -69,6 +70,11 @@ export const EditCardContent: React.FC<EditCardContentProps> = (props) => {
           <EditStateField state={taskState.state} taskDispatch={taskDispatch} />
           <EditColorField
             taskColor={taskState.headerColor}
+            taskDispatch={taskDispatch}
+          />
+          <EditAlarmField
+            isAlarm={taskState.isAlarm}
+            isSchedule={taskState.schedule?.from ? true : false}
             taskDispatch={taskDispatch}
           />
         </Box>

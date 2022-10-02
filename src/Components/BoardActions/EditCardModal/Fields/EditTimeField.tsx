@@ -14,6 +14,7 @@ type EditTimeFieldProps = {
   disabled?: boolean;
   isClear?: boolean;
   clearHandler?: () => void;
+  errorHandler?: (reason: string | null, value: string | null) => void;
 };
 
 export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {
@@ -27,6 +28,7 @@ export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {
     disabled,
     isClear,
     clearHandler,
+    errorHandler,
   } = props;
 
   return (
@@ -47,6 +49,7 @@ export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {
         value={time}
         showToolbar
         onChange={changeHandler}
+        onError={errorHandler}
         label={label}
         maxTime={maxTime ? maxTime : undefined}
         minTime={minTime ? minTime : undefined}

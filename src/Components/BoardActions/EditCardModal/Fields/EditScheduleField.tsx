@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   FormControl,
   InputLabel,
   OutlinedInput,
@@ -26,6 +25,7 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
   const [timeFrom, setTimeFrom] = useState(taskSchedule?.from || null);
   const [timeTo, setTimeTo] = useState(taskSchedule?.to || null);
   const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState({ from: false, to: false });
 
   const formatSchedule = () => {
     return timeFrom && timeTo
@@ -40,12 +40,16 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
   const [schedule, setSchedule] = useState(formatSchedule() || "None");
 
   const onSubmitHandler = () => {
-    const result = formatSchedule();
-    result !== schedule && setSchedule(result);
+    const format = formatSchedule();
+
+    format !== schedule && setSchedule(format);
+    const other = format === "None" ? { isAlarm: false } : {};
+
     taskDispatch({
       type: "edit",
-      result: { schedule: { from: timeFrom, to: timeTo } },
+      result: { schedule: { from: timeFrom, to: timeTo }, ...other },
     });
+
     closeHandler();
   };
 
@@ -73,7 +77,7 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
   };
 
   const ScheduleDialog = (
-    <Dialog open={isOpen} onClose={closeHandler} fullWidth>
+    <Dialog open={isOpen} onClose={closeHandler}>
       <DialogContent
         sx={{
           display: "flex",
@@ -92,17 +96,23 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
           clearHandler={() => {
             setTimeFrom(null);
           }}
+          errorHandler={(reason: string | null, value: string | null) => {
+            setIsError({ ...isError, from: reason ? true : false });
+          }}
         />
         <EditTimeField
           time={timeFrom ? timeTo : null}
           changeHandler={timeToChangeHandler}
-          label="Finish"
+          label="End"
           minTime={timeFrom}
           disabled={timeFrom ? false : true}
           showIcon
           isClear
           clearHandler={() => {
             setTimeTo(null);
+          }}
+          errorHandler={(reason: string | null, value: string | null) => {
+            setIsError({ ...isError, to: reason ? true : false });
           }}
         />
       </DialogContent>
@@ -113,7 +123,11 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
         <Button onClick={closeHandler} sx={{ fontWeight: "bold" }}>
           Cancel
         </Button>
-        <Button onClick={onSubmitHandler} sx={{ fontWeight: "bold" }}>
+        <Button
+          onClick={onSubmitHandler}
+          sx={{ fontWeight: "bold" }}
+          disabled={isError.from || isError.to}
+        >
           Submit
         </Button>
       </DialogActions>

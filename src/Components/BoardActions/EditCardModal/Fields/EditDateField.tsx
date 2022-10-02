@@ -50,7 +50,9 @@ export const EditDateField: React.FC<EditDateFieldProps> = (props) => {
       <EventNote fontSize="medium" sx={{ width: 48 }} />
       <DatePicker
         openTo="day"
-        views={["year", "month", "day"]}
+        minDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
+        maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+        views={["month", "day"]}
         value={date}
         label="Date"
         onChange={onChangeHandler}

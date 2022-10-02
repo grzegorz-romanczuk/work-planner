@@ -77,10 +77,6 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         <DarkModeSwitch checked={!isDarkMode} onChange={toggleDarkMode} />
       </Box>
       {divider}
-      {/* <Box sx={{ ...sxBoxProps, minHeight: 32 }}>
-        <SearchField sxProps={{ width: "auto" }} />
-      </Box>
-      {divider} */}
     </React.Fragment>
   );
 

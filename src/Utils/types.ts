@@ -5,6 +5,7 @@ export type TaskShape = {
   schedule?: { from?: string | null; to?: string | null };
   headerColor?: string;
   description?: string;
+  isAlarm?: boolean;
 };
 
 export type BoardDataType = {

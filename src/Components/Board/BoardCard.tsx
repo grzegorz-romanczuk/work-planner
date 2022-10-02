@@ -1,4 +1,5 @@
-import { Schedule } from "@mui/icons-material";
+import React, { useReducer, useState, useEffect } from "react";
+import { Alarm, Schedule } from "@mui/icons-material";
 import {
   alpha,
   Box,
@@ -6,15 +7,16 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Divider,
   Typography,
   useTheme,
 } from "@mui/material";
-import { display } from "@mui/system";
-import React, { useReducer, useState } from "react";
 import { format24Time } from "../../Utils/dateFormatter";
 import { TaskShape } from "../../Utils/types";
 import { EditCardModal } from "../BoardActions/EditCardModal/EditCardModal";
 import { RemoveCardButton } from "../BoardActions/RemoveCardButton/RemoveCardButton";
+import { AlarmDialog } from "../Alarm/AlarmDialog";
+import { Console } from "console";
 
 export type BoardCardProps = {
   subheader?: React.ReactNode;
@@ -70,6 +72,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [cardState, dispatchCardState] = useReducer(cardReducer, taskData);
+  const [showAlarm, setShowAlarm] = useState(false);
 
   const onMouseEnterHandler = () => {
     setIsHovering(true);
@@ -86,6 +89,25 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     setIsOpen(false);
     editTask(cardState);
   };
+
+  useEffect(() => {
+    let alarm: NodeJS.Timeout;
+
+    if (cardState.isAlarm && cardState.schedule?.from) {
+      const alarmTime =
+        new Date(cardState.schedule.from).getTime() - new Date().getTime();
+      console.log(alarmTime);
+      if (alarmTime > 0) {
+        alarm = setTimeout(() => {
+          setShowAlarm(true);
+        }, alarmTime);
+      }
+    }
+
+    return () => {
+      clearTimeout(alarm);
+    };
+  }, [cardState]);
 
   const cardSchedule = cardState.schedule?.from && (
     <Box
@@ -108,6 +130,10 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     </Box>
   );
 
+  const cardAlarm = cardState.isAlarm && <Alarm />;
+
+  const divider = <Divider orientation="vertical" flexItem />;
+
   const cardDetails = (
     <Box
       sx={{
@@ -117,6 +143,8 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
       }}
     >
       {cardSchedule}
+      {cardSchedule && cardAlarm && divider}
+      {cardAlarm}
     </Box>
   );
 
@@ -131,6 +159,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
           width: "100%",
           "&:hover": {
             backgroundColor: "board.hoverCard",
+            cursor: "pointer",
           },
         }}
         raised={raised}
@@ -180,6 +209,13 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
         closeHandler={closeHandler}
         taskDispatch={dispatchCardState}
         taskState={cardState}
+      />
+      <AlarmDialog
+        taskState={cardState}
+        isOpen={showAlarm}
+        closeHandler={() => {
+          setShowAlarm(false);
+        }}
       />
     </React.Fragment>
   );
