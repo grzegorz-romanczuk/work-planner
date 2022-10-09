@@ -53,6 +53,7 @@ export const Board: React.FC<BoardProps> = (props) => {
       id={id}
       overflow="auto"
       maxHeight={maxHeight}
+      sx={{ scrollSnapType: "x mandatory" }}
     >
       {children?.map((item, index) => {
         return item;

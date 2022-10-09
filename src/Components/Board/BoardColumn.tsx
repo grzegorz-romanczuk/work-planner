@@ -62,7 +62,11 @@ export const BoardColumn: React.FC<BoardColumnProps> = (props) => {
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === "dark";
   return (
-    <Grid container sx={{ height, minWidth, maxWidth }} id={id}>
+    <Grid
+      container
+      sx={{ height, minWidth, maxWidth, scrollSnapAlign: "center" }}
+      id={id}
+    >
       <Grid item xs={12} sx={{ height }}>
         <Card
           sx={{
