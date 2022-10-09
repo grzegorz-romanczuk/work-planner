@@ -1,16 +1,19 @@
-import { Schedule } from "@mui/icons-material";
+import { Help, Schedule } from "@mui/icons-material";
 import {
   Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
+  DialogTitle,
   FormControl,
+  IconButton,
   InputLabel,
   OutlinedInput,
+  Popover,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { format24Time } from "../../../../Utils/dateFormatter";
 import { reducerAction } from "../../../Board/BoardCard";
 import { EditTimeField } from "./EditTimeField";
@@ -26,6 +29,9 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
   const [timeTo, setTimeTo] = useState(taskSchedule?.to || null);
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState({ from: false, to: false });
+  const [isPopover, setIsPopover] = useState(false);
+
+  const iconRef = useRef(null);
 
   const formatSchedule = () => {
     return timeFrom && timeTo
@@ -78,14 +84,42 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
 
   const ScheduleDialog = (
     <Dialog open={isOpen} onClose={closeHandler}>
+      <DialogTitle>
+        Set time
+        <IconButton
+          onClick={() => {
+            setIsPopover(true);
+          }}
+          ref={iconRef}
+          size="small"
+        >
+          <Help fontSize="small" />
+        </IconButton>
+        <Popover
+          open={isPopover}
+          anchorEl={iconRef.current}
+          onClose={() => {
+            setIsPopover(false);
+          }}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <Typography sx={{ p: 2 }}>
+            {`Set the start time. `}
+            <em>{`Optionally: Set the end time to set the schedule.`}</em>
+          </Typography>
+        </Popover>
+      </DialogTitle>
       <DialogContent
         sx={{
           display: "flex",
           flexDirection: "column",
           rowGap: 2,
         }}
+        dividers
       >
-        <Typography variant="h3">Select time</Typography>
         <EditTimeField
           time={timeFrom}
           changeHandler={timeFromChangeHandler}
