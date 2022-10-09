@@ -1,8 +1,14 @@
 import { Clear, Schedule } from "@mui/icons-material";
-import { Box, IconButton, TextField } from "@mui/material";
+import {
+  Box,
+  Dialog,
+  IconButton,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import { TimePicker } from "@mui/x-date-pickers-pro";
 import "./EditTimeField.css";
-import React from "react";
+import React, { useState } from "react";
 
 type EditTimeFieldProps = {
   time: string | null;
@@ -31,6 +37,9 @@ export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {
     errorHandler,
   } = props;
 
+  const [mobileBackground, setMobileBackground] = useState(false);
+  const isDesktop = useMediaQuery("@media (pointer: fine)");
+
   return (
     <Box
       sx={{
@@ -50,6 +59,14 @@ export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {
         showToolbar
         onChange={changeHandler}
         onError={errorHandler}
+        onOpen={() => {
+          if (!isDesktop) {
+            setMobileBackground(true);
+            setTimeout(() => {
+              setMobileBackground(false);
+            }, 100);
+          }
+        }}
         label={label}
         maxTime={maxTime ? maxTime : undefined}
         minTime={minTime ? minTime : undefined}
@@ -63,6 +80,7 @@ export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {
           />
         )}
       />
+      <Dialog open={mobileBackground} />
       {isClear && (
         <IconButton onClick={clearHandler} disabled={time === null}>
           <Clear />

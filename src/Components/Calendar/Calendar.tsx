@@ -17,10 +17,18 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
         date={new Date(date)}
         onChange={onChange}
         openTo="day"
-        minDate={new Date(new Date().setFullYear(new Date().getFullYear() - 1))}
-        maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
-        autoFocus
+        minDate={
+          new Date(
+            new Date("01/01/2000").setFullYear(new Date().getFullYear() - 1)
+          )
+        }
+        maxDate={
+          new Date(
+            new Date("12/31/2000").setFullYear(new Date().getFullYear() + 1)
+          )
+        }
         views={["month", "day"]}
+        autoFocus
       />
     </React.Fragment>
   );

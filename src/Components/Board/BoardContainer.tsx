@@ -29,7 +29,6 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
             setBoardData((prevState) => {
               const result = { ...prevState };
               result.tasks = result.tasks?.filter((task) => task !== item);
-              console.log(result.tasks);
               return result;
             });
           };
@@ -43,8 +42,6 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
               return result;
             });
           };
-
-          console.log(item);
 
           return (
             <BoardCard

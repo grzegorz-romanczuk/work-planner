@@ -6,7 +6,6 @@ import { Calendar } from "./Calendar";
 import { useSearchParams, createSearchParams } from "react-router-dom";
 import { formatCalendarDate, formatUrlDate } from "../../Utils/dateFormatter";
 import { DarkModeSwitch } from "../DarkModeSwitch/DarkModeSwitch";
-import { SearchField } from "../SearchField/SearchField";
 
 type CalendarModalProps = {
   isDarkMode?: boolean;

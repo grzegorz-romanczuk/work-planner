@@ -6,7 +6,6 @@ import { EditDescriptionField } from "./Fields/EditDescriptionField";
 import { EditStateField } from "./Fields/EditStateField";
 import { EditDateField } from "./Fields/EditDateField";
 import { EditColorField } from "./Fields/EditColorField";
-import { EditTimeField } from "./Fields/EditTimeField";
 import { EditScheduleField } from "./Fields/EditScheduleField";
 import { EditAlarmField } from "./Fields/EditAlarmField";
 
