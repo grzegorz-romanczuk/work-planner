@@ -7,12 +7,13 @@ import {
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { BoardContainer } from "./Components/Board/BoardContainer";
 import { globalLightTheme, globalDarkTheme } from "./Themes/globalTheme";
 import { Navbar } from "./Components/Navbar/Navbar";
 import { CalendarModal } from "./Components/Calendar/CalendarModal";
+import { LoadData } from "./Utils/DataManager";
 
 function App() {
   const theme = useTheme();
@@ -21,6 +22,11 @@ function App() {
     lgMediaQuery ? true : false
   );
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [plannedDays, setPlannedDays] = useState(
+    LoadData()
+      .tasks?.map((value) => value.date)
+      .filter((value, index, array) => array.indexOf(value) === index) || []
+  );
 
   const toggleDarkModeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -31,6 +37,10 @@ function App() {
   const toggleCalendar = () => {
     setCalendarExpanded(!calendarExpanded);
   };
+
+  const plannedDaysHandler = useCallback((newValue: Array<string>) => {
+    setPlannedDays(newValue);
+  }, []);
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -91,6 +101,7 @@ function App() {
                 isDarkMode={isDarkMode}
                 toggleCalendar={toggleCalendar}
                 calendarExpanded={calendarExpanded}
+                plannedDays={plannedDays}
               />
             </Box>
             <Box
@@ -101,7 +112,7 @@ function App() {
                 minWidth: 0,
               }}
             >
-              <BoardContainer />
+              <BoardContainer plannedDaysChangeHandler={plannedDaysHandler} />
             </Box>
           </Box>
         </Box>

@@ -1,15 +1,74 @@
 import React from "react";
-import { CalendarPicker } from "@mui/x-date-pickers-pro";
+import {
+  CalendarPicker,
+  PickersDay,
+  PickersDayProps,
+} from "@mui/x-date-pickers-pro";
 
 import "./Calendar.css";
+import { formatUrlDate } from "../../Utils/dateFormatter";
+import { EventBusy } from "@mui/icons-material";
+import { useTheme } from "@mui/material";
 
 type CalendarProps = {
   onChange: (value: Date | null) => void;
   date: string;
+  plannedDays?: Array<string>;
 };
 
 export const Calendar: React.FC<CalendarProps> = (props) => {
-  const { onChange, date } = props;
+  const { onChange, date, plannedDays } = props;
+  const theme = useTheme();
+
+  const renderPlannedPickerDay = (
+    currentDate: Date,
+    selectedDates: Array<Date | null>,
+    pickersDayProps: PickersDayProps<Date>
+  ) => {
+    const isSelectedDay = formatUrlDate(currentDate) === date;
+    return plannedDays && plannedDays.includes(formatUrlDate(currentDate)) ? (
+      <PickersDay
+        sx={{
+          backgroundColor: isSelectedDay
+            ? theme.palette.primary.light
+            : theme.palette.secondary.light,
+          "&:hover": {
+            backgroundColor: isSelectedDay
+              ? theme.palette.primary.main
+              : theme.palette.secondary.main,
+          },
+        }}
+        {...pickersDayProps}
+      >
+        {currentDate.getDate()}
+        <EventBusy
+          fontSize="small"
+          sx={{
+            position: "absolute",
+            width: 16,
+            height: 16,
+            translate: "85% -75%",
+            borderRadius: "25%",
+            backgroundColor: "inherit",
+          }}
+        />
+      </PickersDay>
+    ) : (
+      <PickersDay
+        sx={{
+          backgroundColor: isSelectedDay
+            ? theme.palette.primary.light
+            : theme.palette.secondary.light,
+          "&:hover": {
+            backgroundColor: isSelectedDay
+              ? theme.palette.primary.main
+              : theme.palette.secondary.main,
+          },
+        }}
+        {...pickersDayProps}
+      />
+    );
+  };
 
   return (
     <React.Fragment>
@@ -17,6 +76,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
         date={new Date(date)}
         onChange={onChange}
         openTo="day"
+        renderDay={renderPlannedPickerDay}
         minDate={
           new Date(
             new Date("01/01/2000").setFullYear(new Date().getFullYear() - 1)

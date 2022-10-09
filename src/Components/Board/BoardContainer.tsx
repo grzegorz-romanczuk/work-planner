@@ -8,9 +8,12 @@ import { useSearchParams } from "react-router-dom";
 import { formatUrlDate } from "../../Utils/dateFormatter";
 import { LoadData, SaveData } from "../../Utils/DataManager";
 
-export type BoardContainerProps = {};
+export type BoardContainerProps = {
+  plannedDaysChangeHandler: (newValue: Array<string>) => void;
+};
 
 export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
+  const { plannedDaysChangeHandler } = props;
   const [boardData, setBoardData] = useState<BoardDataType>(LoadData());
   const [content, setContent] = useState<JSX.Element[] | undefined>(undefined);
   const [searchParams] = useSearchParams();
@@ -19,7 +22,12 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
 
   useEffect(() => {
     SaveData(boardData);
-  }, [boardData]);
+
+    const mappedDays = boardData.tasks
+      ?.map((value) => value.date)
+      .filter((value, index, array) => array.indexOf(value) === index);
+    plannedDaysChangeHandler(mappedDays || []);
+  }, [boardData, plannedDaysChangeHandler]);
 
   useEffect(() => {
     const getColumnContent = (state: State) => {

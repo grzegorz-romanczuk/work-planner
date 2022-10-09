@@ -11,12 +11,18 @@ type CalendarModalProps = {
   isDarkMode?: boolean;
   toggleDarkMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   toggleCalendar?: () => void;
+  plannedDays?: Array<string>;
   calendarExpanded?: boolean;
 };
 
 export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
-  const { isDarkMode, toggleDarkMode, toggleCalendar, calendarExpanded } =
-    props;
+  const {
+    isDarkMode,
+    toggleDarkMode,
+    toggleCalendar,
+    calendarExpanded,
+    plannedDays,
+  } = props;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const date = searchParams.get("date") || formatUrlDate(new Date());
@@ -121,7 +127,11 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         </Box>
         {divider}
         <Box sx={{ ...sxBoxProps }}>
-          <Calendar date={date} onChange={onChangeHandler} />
+          <Calendar
+            date={date}
+            onChange={onChangeHandler}
+            plannedDays={plannedDays}
+          />
         </Box>
       </Box>
       <CalendarClosedModal isOpen={calendarExpanded} onClick={toggleCalendar} />
