@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
                   justifyContent: "center",
                 }}
               >
-                <SearchField />
+                {/* <SearchField /> */}
               </Box>
               <Box
                 sx={{
@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = (props) => {
                   {smMediaQuery && (isDarkMode ? "DARKMODE" : "LIGHTMODE")}
                 </Typography>
                 <DarkModeSwitch
-                  defaultChecked={!isDarkMode}
+                  checked={!isDarkMode}
                   onChange={toggleDarkMode}
                 />
               </Box>

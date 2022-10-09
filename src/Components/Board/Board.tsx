@@ -8,7 +8,7 @@ const defaultProps: Partial<BoardProps> = {
   justifyContent: "flex-start",
   alignItems: "flex-start",
   spacing: { xs: 2, sm: 3 },
-  minWidth: { xs: "100%", lg: "fit-content" },
+  minWidth: 0,
   width: { xs: "100%", lg: "fit-content" },
   height: "100%",
   maxHeight: "100%",
@@ -53,6 +53,7 @@ export const Board: React.FC<BoardProps> = (props) => {
       id={id}
       overflow="auto"
       maxHeight={maxHeight}
+      sx={{ scrollSnapType: "x mandatory" }}
     >
       {children?.map((item, index) => {
         return item;

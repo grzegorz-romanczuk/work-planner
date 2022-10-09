@@ -1,3 +1,5 @@
+import { columnShapeProps } from "./types";
+
 export const columnShapes: columnShapeProps = [
   {
     id: "column-todo",
@@ -18,12 +20,3 @@ export const columnShapes: columnShapeProps = [
     state: "done",
   },
 ];
-
-type columnShapeProps = Array<{
-  id: string;
-  title: string;
-  headerColor: string;
-  state: State;
-}>;
-
-export type State = "todo" | "progress" | "done";

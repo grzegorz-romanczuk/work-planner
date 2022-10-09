@@ -6,18 +6,23 @@ import { Calendar } from "./Calendar";
 import { useSearchParams, createSearchParams } from "react-router-dom";
 import { formatCalendarDate, formatUrlDate } from "../../Utils/dateFormatter";
 import { DarkModeSwitch } from "../DarkModeSwitch/DarkModeSwitch";
-import { SearchField } from "../SearchField/SearchField";
 
 type CalendarModalProps = {
   isDarkMode?: boolean;
   toggleDarkMode?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   toggleCalendar?: () => void;
+  plannedDays?: Array<string>;
   calendarExpanded?: boolean;
 };
 
 export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
-  const { isDarkMode, toggleDarkMode, toggleCalendar, calendarExpanded } =
-    props;
+  const {
+    isDarkMode,
+    toggleDarkMode,
+    toggleCalendar,
+    calendarExpanded,
+    plannedDays,
+  } = props;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const date = searchParams.get("date") || formatUrlDate(new Date());
@@ -64,7 +69,6 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         sx={{
           ...sxBoxProps,
           flexDirection: "row",
-
           mt: 1,
           minHeight: 28,
         }}
@@ -75,14 +79,7 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         >
           {isDarkMode ? "DARKMODE" : "LIGHTMODE"}
         </Typography>
-        <DarkModeSwitch
-          defaultChecked={!isDarkMode}
-          onChange={toggleDarkMode}
-        />
-      </Box>
-      {divider}
-      <Box sx={{ ...sxBoxProps, minHeight: 32 }}>
-        <SearchField sxProps={{ width: "auto" }} />
+        <DarkModeSwitch checked={!isDarkMode} onChange={toggleDarkMode} />
       </Box>
       {divider}
     </React.Fragment>
@@ -94,6 +91,11 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         sx={{
           display: "block",
           minHeight: 0,
+          maxHeight: smallComponentsMediaQuery
+            ? "100%"
+            : calendarExpanded
+            ? { xs: "100%", sm: "100vh" }
+            : 0,
           backgroundColor: bgColor,
           visibility: calendarExpanded ? "visible" : "hidden",
           width: smallComponentsMediaQuery
@@ -103,10 +105,8 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
             : { xs: "100%", sm: "320px" },
           height: smallComponentsMediaQuery
             ? "100%"
-            : calendarExpanded
-            ? { xs: "100%" }
-            : 0,
-          transition: "width 0.5s, visibility 0.5s, height 0.5s",
+            : { xs: "100%", sm: "fit-content" },
+          transition: "width 0.3s, visibility 0.3s, max-height 0.3s",
           position: smallComponentsMediaQuery ? "sticky" : "fixed",
           zIndex: 2,
           boxShadow: "0 0 5px 0 #000000",
@@ -127,7 +127,11 @@ export const CalendarModal: React.FC<CalendarModalProps> = (props) => {
         </Box>
         {divider}
         <Box sx={{ ...sxBoxProps }}>
-          <Calendar date={date} onChange={onChangeHandler} />
+          <Calendar
+            date={date}
+            onChange={onChangeHandler}
+            plannedDays={plannedDays}
+          />
         </Box>
       </Box>
       <CalendarClosedModal isOpen={calendarExpanded} onClick={toggleCalendar} />

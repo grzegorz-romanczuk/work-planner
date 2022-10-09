@@ -24,6 +24,7 @@ declare module "@mui/material/styles" {
       column?: React.CSSProperties["color"];
       buttonBackground?: React.CSSProperties["color"];
       hoverbuttonBackground?: React.CSSProperties["color"];
+      focusbuttonBackground?: React.CSSProperties["color"];
       hoverCard?: React.CSSProperties["color"];
     };
   }
@@ -40,10 +41,21 @@ declare module "@mui/material/Typography" {
       column: true;
       buttonBackground: true;
       hoverbuttonBackground: true;
+      focusbuttonBackground: true;
       hoverCard: true;
     };
   }
 }
+
+const globalBreakpoints = {
+  values: {
+    xs: 0,
+    sm: 480,
+    md: 768,
+    lg: 1024,
+    xl: 1536,
+  },
+};
 
 const defaultTypography = {
   body1: {
@@ -100,18 +112,13 @@ export const globalLightTheme = createTheme({
       column: "#efefef",
       buttonBackground: "#eeeeeef2",
       hoverbuttonBackground: "#dededef2",
+      focusbuttonBackground: "#ddddddf2",
       hoverCard: "#eeeeee",
     },
   },
   spacing: 8,
   breakpoints: {
-    values: {
-      xs: 0,
-      sm: 480,
-      md: 768,
-      lg: 1024,
-      xl: 1536,
-    },
+    ...globalBreakpoints,
   },
 });
 
@@ -136,20 +143,20 @@ export const globalDarkTheme = createTheme({
       contrastText: "#ffffff",
     },
     background: {},
-    board: {},
+    board: {
+      column: "#101010",
+      buttonBackground: "#111111f2",
+      hoverbuttonBackground: "#212121f2",
+      focusbuttonBackground: "#222222f2",
+      hoverCard: "#222222",
+    },
     text: {
       primary: "#eeeeee",
     },
   },
   spacing: 8,
   breakpoints: {
-    values: {
-      xs: 0,
-      sm: 480,
-      md: 768,
-      lg: 1024,
-      xl: 1536,
-    },
+    ...globalBreakpoints,
   },
 });
 
