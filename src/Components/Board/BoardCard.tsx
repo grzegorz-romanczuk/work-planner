@@ -16,7 +16,6 @@ import { TaskShape } from "../../Utils/types";
 import { EditCardModal } from "../BoardActions/EditCardModal/EditCardModal";
 import { RemoveCardButton } from "../BoardActions/RemoveCardButton/RemoveCardButton";
 import { AlarmDialog } from "../Alarm/AlarmDialog";
-import { Console } from "console";
 
 export type BoardCardProps = {
   subheader?: React.ReactNode;
@@ -29,7 +28,7 @@ export type BoardCardProps = {
   borderRadius?: number;
   padding?: number | string;
   id?: string;
-  removeTask: (event: React.MouseEvent) => void;
+  removeTask: () => void;
   editTask: (newTask: TaskShape) => void;
   taskData: TaskShape;
 };
@@ -41,12 +40,19 @@ const defaultProps = {
 };
 
 export type reducerState = TaskShape;
-export type reducerAction = { type: "edit"; result: Partial<TaskShape> };
+export type reducerAction =
+  | {
+      type: "edit";
+      result: Partial<TaskShape>;
+    }
+  | { type: "replace"; result: TaskShape };
 
 const cardReducer = (state: reducerState, action: reducerAction) => {
   switch (action.type) {
     case "edit":
       return { ...state, ...action.result };
+    case "replace":
+      return { ...action.result };
     default:
       return state;
   }
@@ -74,6 +80,10 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
   const [cardState, dispatchCardState] = useReducer(cardReducer, taskData);
   const [showAlarm, setShowAlarm] = useState(false);
 
+  useEffect(() => {
+    dispatchCardState({ type: "replace", result: taskData });
+  }, [taskData]);
+
   const onMouseEnterHandler = () => {
     setIsHovering(true);
   };
@@ -90,13 +100,17 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
     editTask(cardState);
   };
 
+  const removeHandler = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    removeTask();
+  };
+
   useEffect(() => {
     let alarm: NodeJS.Timeout;
 
     if (cardState.isAlarm && cardState.schedule?.from) {
       const alarmTime =
         new Date(cardState.schedule.from).getTime() - new Date().getTime();
-      console.log(alarmTime);
       if (alarmTime > 0) {
         alarm = setTimeout(() => {
           setShowAlarm(true);
@@ -200,7 +214,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
             {cardState.title}
           </Typography>
 
-          {isHovering && <RemoveCardButton onClick={removeTask} />}
+          {isHovering && <RemoveCardButton onClick={removeHandler} />}
         </CardContent>
         <CardActions>{cardDetails}</CardActions>
       </Card>
@@ -208,6 +222,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
         open={isOpen}
         closeHandler={closeHandler}
         taskDispatch={dispatchCardState}
+        removeHandler={removeTask}
         taskState={cardState}
       />
       <AlarmDialog

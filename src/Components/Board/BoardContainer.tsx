@@ -25,11 +25,11 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
           return item.state === state && item.date === date;
         })
         .map((item, index) => {
-          const removeTaskHandler = (event: React.MouseEvent) => {
-            event.stopPropagation();
+          const removeTaskHandler = () => {
             setBoardData((prevState) => {
               const result = { ...prevState };
               result.tasks = result.tasks?.filter((task) => task !== item);
+              console.log(result.tasks);
               return result;
             });
           };
@@ -44,6 +44,8 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
             });
           };
 
+          console.log(item);
+
           return (
             <BoardCard
               key={index}
@@ -54,6 +56,7 @@ export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
             />
           );
         });
+
       return content;
     };
 

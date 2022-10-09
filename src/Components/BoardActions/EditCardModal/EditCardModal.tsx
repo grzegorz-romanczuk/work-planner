@@ -19,10 +19,11 @@ type EditCardModalProps = {
   closeHandler: () => void;
   taskState: reducerState;
   taskDispatch: React.Dispatch<reducerAction>;
+  removeHandler: () => void;
 };
 
 export const EditCardModal: React.FC<EditCardModalProps> = (props) => {
-  const { open, closeHandler, taskState, taskDispatch } = props;
+  const { open, closeHandler, taskState, taskDispatch, removeHandler } = props;
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const isDarkMode = theme.palette.mode === "dark";
@@ -60,7 +61,12 @@ export const EditCardModal: React.FC<EditCardModalProps> = (props) => {
       )}
       <EditCardHeader taskState={taskState} taskDispatch={taskDispatch} />
       <EditCardContent taskState={taskState} taskDispatch={taskDispatch} />
-      <EditCardActions taskState={taskState} taskDispatch={taskDispatch} />
+      <EditCardActions
+        taskState={taskState}
+        closeHandler={closeHandler}
+        taskDispatch={taskDispatch}
+        removeHandler={removeHandler}
+      />
     </Dialog>
   );
 };
