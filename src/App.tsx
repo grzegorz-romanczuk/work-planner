@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDateFns } from "@mui/x-date-pickers-pro/AdapterDateFns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { BoardContainer } from "./Components/Board/BoardContainer";
 import { globalLightTheme, globalDarkTheme } from "./Themes/globalTheme";
@@ -32,6 +32,27 @@ function App() {
     setCalendarExpanded(!calendarExpanded);
   };
 
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--viewport-height",
+      `${visualViewport?.height}px`
+    );
+    visualViewport?.addEventListener("resize", () => {
+      document.documentElement.style.setProperty(
+        "--viewport-height",
+        `${visualViewport?.height}px`
+      );
+    });
+    return () => {
+      visualViewport?.removeEventListener("resize", () => {
+        document.documentElement.style.setProperty(
+          "--viewport-height",
+          `${visualViewport?.height}px`
+        );
+      });
+    };
+  }, []);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <ThemeProvider theme={isDarkMode ? globalDarkTheme : globalLightTheme}>
@@ -40,7 +61,7 @@ function App() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "100vh",
+            height: "var(--viewport-height)",
           }}
         >
           <Box sx={{ display: "flex", flexDirection: "row", minHeight: 0 }}>
