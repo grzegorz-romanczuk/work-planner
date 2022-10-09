@@ -6,15 +6,20 @@ import { columnShapes } from "../../Utils/Board.utils";
 import { State, BoardDataType, TaskShape } from "../../Utils/types";
 import { useSearchParams } from "react-router-dom";
 import { formatUrlDate } from "../../Utils/dateFormatter";
+import { LoadData, SaveData } from "../../Utils/DataManager";
 
 export type BoardContainerProps = {};
 
 export const BoardContainer: React.FC<BoardContainerProps> = (props) => {
-  const [boardData, setBoardData] = useState<BoardDataType>({});
+  const [boardData, setBoardData] = useState<BoardDataType>(LoadData());
   const [content, setContent] = useState<JSX.Element[] | undefined>(undefined);
   const [searchParams] = useSearchParams();
   const getDate = searchParams.get("date") || new Date();
   const date = formatUrlDate(new Date(getDate));
+
+  useEffect(() => {
+    SaveData(boardData);
+  }, [boardData]);
 
   useEffect(() => {
     const getColumnContent = (state: State) => {
