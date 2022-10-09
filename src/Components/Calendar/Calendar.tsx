@@ -28,16 +28,16 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     const isSelectedDay = formatUrlDate(currentDate) === date;
     return plannedDays && plannedDays.includes(formatUrlDate(currentDate)) ? (
       <PickersDay
-        sx={{
-          backgroundColor: isSelectedDay
-            ? theme.palette.primary.light
-            : theme.palette.secondary.light,
-          "&:hover": {
-            backgroundColor: isSelectedDay
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
-          },
-        }}
+        sx={
+          theme.palette.mode !== "dark"
+            ? {
+                backgroundColor: theme.palette.secondary.light,
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.main,
+                },
+              }
+            : {}
+        }
         {...pickersDayProps}
       >
         {currentDate.getDate()}
@@ -55,16 +55,16 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
       </PickersDay>
     ) : (
       <PickersDay
-        sx={{
-          backgroundColor: isSelectedDay
-            ? theme.palette.primary.light
-            : theme.palette.secondary.light,
-          "&:hover": {
-            backgroundColor: isSelectedDay
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
-          },
-        }}
+        sx={
+          theme.palette.mode !== "dark"
+            ? {
+                backgroundColor: theme.palette.secondary.light,
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.main,
+                },
+              }
+            : {}
+        }
         {...pickersDayProps}
       />
     );
