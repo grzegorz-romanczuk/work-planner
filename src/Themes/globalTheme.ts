@@ -1,3 +1,5 @@
+import { darkScrollbar, PaletteMode } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
@@ -120,6 +122,21 @@ export const globalLightTheme = createTheme({
   breakpoints: {
     ...globalBreakpoints,
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          ...darkScrollbar({
+            track: grey[200],
+            thumb: grey[400],
+            active: grey[400],
+          }),
+          //scrollbarWidth for Firefox
+          scrollbarWidth: "thin",
+        },
+      },
+    },
+  },
 });
 
 globalLightTheme.typography = {
@@ -144,7 +161,7 @@ export const globalDarkTheme = createTheme({
     },
     background: {},
     board: {
-      column: "#101010",
+      column: "#01010144",
       buttonBackground: "#111111f2",
       hoverbuttonBackground: "#212121f2",
       focusbuttonBackground: "#222222f2",
@@ -157,6 +174,17 @@ export const globalDarkTheme = createTheme({
   spacing: 8,
   breakpoints: {
     ...globalBreakpoints,
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        html: {
+          ...darkScrollbar(),
+          //scrollbarWidth for Firefox
+          scrollbarWidth: "thin",
+        },
+      },
+    },
   },
 });
 
