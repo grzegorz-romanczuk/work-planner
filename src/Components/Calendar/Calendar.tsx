@@ -90,7 +90,13 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
         autoFocus
       />
       <CardActions sx={{ justifyContent: "flex-end", marginX: 1 }}>
-        <Button>Today</Button>
+        <Button
+          onClick={() => {
+            onChange(new Date());
+          }}
+        >
+          Today
+        </Button>
       </CardActions>
     </React.Fragment>
   );

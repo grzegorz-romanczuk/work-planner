@@ -11,16 +11,16 @@ import "./EditTimeField.css";
 import React, { useState } from "react";
 
 type EditTimeFieldProps = {
-  time: string | null;
-  changeHandler: (value: string | null) => void;
+  time: Date | null;
+  changeHandler: (value: Date | null) => void;
   label?: string;
   showIcon?: boolean;
-  maxTime?: string | null;
-  minTime?: string | null;
+  maxTime?: Date | null;
+  minTime?: Date | null;
   disabled?: boolean;
   isClear?: boolean;
   clearHandler?: () => void;
-  errorHandler?: (reason: string | null, value: string | null) => void;
+  errorHandler?: (reason: string | null, value: Date | null) => void;
 };
 
 export const EditTimeField: React.FC<EditTimeFieldProps> = (props) => {

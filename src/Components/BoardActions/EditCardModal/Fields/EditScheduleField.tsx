@@ -25,8 +25,12 @@ type EditScheduleFieldProps = {
 
 export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
   const { taskSchedule, taskDispatch } = props;
-  const [timeFrom, setTimeFrom] = useState(taskSchedule?.from || null);
-  const [timeTo, setTimeTo] = useState(taskSchedule?.to || null);
+  const [timeFrom, setTimeFrom] = useState(
+    taskSchedule?.from ? new Date(taskSchedule.from) : null
+  );
+  const [timeTo, setTimeTo] = useState(
+    taskSchedule?.to ? new Date(taskSchedule.to) : null
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState({ from: false, to: false });
   const [isPopover, setIsPopover] = useState(false);
@@ -53,7 +57,10 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
 
     taskDispatch({
       type: "edit",
-      result: { schedule: { from: timeFrom, to: timeTo }, ...other },
+      result: {
+        schedule: { from: timeFrom?.toString(), to: timeTo?.toString() },
+        ...other,
+      },
     });
 
     closeHandler();
@@ -64,17 +71,18 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
     setTimeTo(null);
   };
 
-  const timeFromChangeHandler = (value: string | null) => {
+  const timeFromChangeHandler = (value: Date | null) => {
     setTimeFrom(value);
+    console.log(typeof value, value);
   };
 
-  const timeToChangeHandler = (value: string | null) => {
+  const timeToChangeHandler = (value: Date | null) => {
     setTimeTo(value);
   };
 
   const openHandler = () => {
-    setTimeFrom(taskSchedule?.from || null);
-    setTimeTo(taskSchedule?.to || null);
+    setTimeFrom(taskSchedule?.from ? new Date(taskSchedule.from) : null);
+    setTimeTo(taskSchedule?.to ? new Date(taskSchedule.to) : null);
     setIsOpen(true);
   };
 
@@ -133,7 +141,7 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
           clearHandler={() => {
             setTimeFrom(null);
           }}
-          errorHandler={(reason: string | null, value: string | null) => {
+          errorHandler={(reason: string | null, value: Date | null) => {
             setIsError({ ...isError, from: reason ? true : false });
           }}
         />
@@ -148,7 +156,7 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
           clearHandler={() => {
             setTimeTo(null);
           }}
-          errorHandler={(reason: string | null, value: string | null) => {
+          errorHandler={(reason: string | null, value: Date | null) => {
             setIsError({ ...isError, to: reason ? true : false });
           }}
         />
