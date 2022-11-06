@@ -82,36 +82,39 @@ export const EditScheduleField: React.FC<EditScheduleFieldProps> = (props) => {
     setIsOpen(false);
   };
 
+  const popover = (
+    <React.Fragment>
+      <IconButton
+        onClick={() => {
+          setIsPopover(true);
+        }}
+        ref={iconRef}
+        size="small"
+      >
+        <Help fontSize="small" />
+      </IconButton>
+      <Popover
+        open={isPopover}
+        anchorEl={iconRef.current}
+        onClose={() => {
+          setIsPopover(false);
+        }}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <Typography sx={{ p: 2 }}>
+          {`Set the start time. `}
+          <em>{`Optionally: Set the end time to set the schedule.`}</em>
+        </Typography>
+      </Popover>
+    </React.Fragment>
+  );
+
   const ScheduleDialog = (
     <Dialog open={isOpen} onClose={closeHandler}>
-      <DialogTitle>
-        Set time
-        <IconButton
-          onClick={() => {
-            setIsPopover(true);
-          }}
-          ref={iconRef}
-          size="small"
-        >
-          <Help fontSize="small" />
-        </IconButton>
-        <Popover
-          open={isPopover}
-          anchorEl={iconRef.current}
-          onClose={() => {
-            setIsPopover(false);
-          }}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <Typography sx={{ p: 2 }}>
-            {`Set the start time. `}
-            <em>{`Optionally: Set the end time to set the schedule.`}</em>
-          </Typography>
-        </Popover>
-      </DialogTitle>
+      <DialogTitle>Set time</DialogTitle>
       <DialogContent
         sx={{
           display: "flex",

@@ -8,7 +8,7 @@ import {
 import "./Calendar.css";
 import { formatUrlDate } from "../../Utils/dateFormatter";
 import { EventBusy } from "@mui/icons-material";
-import { useTheme } from "@mui/material";
+import { Button, CardActions, useTheme } from "@mui/material";
 
 type CalendarProps = {
   onChange: (value: Date | null) => void;
@@ -25,19 +25,18 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     selectedDates: Array<Date | null>,
     pickersDayProps: PickersDayProps<Date>
   ) => {
-    const isSelectedDay = formatUrlDate(currentDate) === date;
     return plannedDays && plannedDays.includes(formatUrlDate(currentDate)) ? (
       <PickersDay
-        sx={{
-          backgroundColor: isSelectedDay
-            ? theme.palette.primary.light
-            : theme.palette.secondary.light,
-          "&:hover": {
-            backgroundColor: isSelectedDay
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
-          },
-        }}
+        sx={
+          theme.palette.mode !== "dark"
+            ? {
+                backgroundColor: theme.palette.secondary.light,
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.main,
+                },
+              }
+            : {}
+        }
         {...pickersDayProps}
       >
         {currentDate.getDate()}
@@ -55,16 +54,16 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
       </PickersDay>
     ) : (
       <PickersDay
-        sx={{
-          backgroundColor: isSelectedDay
-            ? theme.palette.primary.light
-            : theme.palette.secondary.light,
-          "&:hover": {
-            backgroundColor: isSelectedDay
-              ? theme.palette.primary.main
-              : theme.palette.secondary.main,
-          },
-        }}
+        sx={
+          theme.palette.mode !== "dark"
+            ? {
+                backgroundColor: theme.palette.secondary.light,
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.main,
+                },
+              }
+            : {}
+        }
         {...pickersDayProps}
       />
     );
@@ -90,6 +89,9 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
         views={["month", "day"]}
         autoFocus
       />
+      <CardActions sx={{ justifyContent: "flex-end", marginX: 1 }}>
+        <Button>Today</Button>
+      </CardActions>
     </React.Fragment>
   );
 };

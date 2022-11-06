@@ -3,10 +3,15 @@ import { Alarm, Schedule } from "@mui/icons-material";
 import {
   alpha,
   Box,
+  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Typography,
   useTheme,
@@ -79,6 +84,16 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [cardState, dispatchCardState] = useReducer(cardReducer, taskData);
   const [showAlarm, setShowAlarm] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const cancelHandler = () => {
+    setShowConfirm(false);
+  };
+
+  const confirmHandler = () => {
+    setShowConfirm(false);
+    removeTask();
+  };
 
   useEffect(() => {
     dispatchCardState({ type: "replace", result: taskData });
@@ -102,7 +117,7 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
 
   const removeHandler = (event: React.MouseEvent) => {
     event.stopPropagation();
-    removeTask();
+    setShowConfirm(true);
   };
 
   useEffect(() => {
@@ -232,6 +247,16 @@ export const BoardCard: React.FC<BoardCardProps> = (props) => {
           setShowAlarm(false);
         }}
       />
+      <Dialog open={showConfirm}>
+        <DialogTitle>Remove task</DialogTitle>
+        <DialogContent dividers>
+          Are you sure you want to remove this task? You can't undo this action.
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancelHandler}>Cancel</Button>
+          <Button onClick={confirmHandler}>Confirm</Button>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 };
